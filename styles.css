@@ -1,6 +1,8 @@
 /* Neon sci-fi grid portfolio theme */
 /* Color tokens for dark mode and neon accents */
 :root {
+  --font-heading: "DotGothic16", system-ui, sans-serif;
+  --font-body: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bg: #050008;
   --bg-alt: #050008;
   --fg: #f9fafb;
@@ -31,7 +33,7 @@
 html, body { height: 100%; }
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", Segoe UI, Roboto, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg);
   color: var(--fg);
   line-height: 1.6;
@@ -103,8 +105,10 @@ a:hover { text-decoration: underline; }
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: radial-gradient(circle at 20% 0%, rgba(255, 77, 253, 0.4), transparent 55%), var(--card);
   color: var(--fg);
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* Theme toggle button that flips dark/light mode */
@@ -127,7 +131,7 @@ a:hover { text-decoration: underline; }
   padding: 0 16px 24px;
 }
 
-/* Main hero card with grid, glow, and rounded corners */
+/* Main hero card with CRT-style dot mask, glow, and rounded corners */
 .hero-grid {
   border-radius: 24px;
   padding: 24px;
@@ -144,15 +148,16 @@ a:hover { text-decoration: underline; }
     0 0 60px rgba(255, 77, 253, 0.35);
 }
 
-/* Grid lines overlay inside the hero card */
+/* Dot-mask overlay inside the hero card to mimic a CRT */
 .hero-grid::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, rgba(255, 77, 253, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 77, 253, 0.12) 1px, transparent 1px);
-  background-size: 32px 32px;
+    radial-gradient(circle, rgba(255, 255, 255, 0.26) 0.7px, transparent 0.7px),
+    radial-gradient(circle, rgba(255, 77, 253, 0.35) 0.7px, transparent 0.7px);
+  background-size: 4px 4px, 4px 4px;
+  background-position: 0 0, 2px 2px;
   opacity: 0.45;
   mix-blend-mode: screen;
   pointer-events: none;
@@ -187,6 +192,7 @@ a:hover { text-decoration: underline; }
   text-transform: uppercase;
   color: rgba(249, 250, 251, 0.72);
   margin: 0 0 12px;
+  font-family: var(--font-body);
 }
 
 /* Main hero headline */
@@ -194,6 +200,9 @@ a:hover { text-decoration: underline; }
   font-size: clamp(30px, 5vw, 46px);
   line-height: 1.1;
   margin: 0 0 12px;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
   text-shadow:
     0 0 12px rgba(0, 0, 0, 0.85),
     0 0 24px rgba(255, 77, 253, 0.5);
@@ -221,7 +230,10 @@ a:hover { text-decoration: underline; }
   border-radius: 12px;
   background: radial-gradient(circle at 0 0, #ffffff, var(--accent));
   color: white;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.05),
@@ -247,6 +259,9 @@ a:hover { text-decoration: underline; }
 .section h2 {
   font-size: 24px;
   margin: 0 0 16px;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
 }
 
 /* Responsive grid used for project cards */
@@ -313,17 +328,29 @@ a:hover { text-decoration: underline; }
   gap: 8px;
 }
 
-/* Main glowing panel that can later be replaced by a real 3D render */
+/* Main glowing panel that can later be replaced by a real 3D render.
+   Uses a wide-spectrum gradient to echo a CRT rainbow arc. */
 .hero-orbit {
   position: relative;
   width: clamp(220px, 26vw, 320px);
   aspect-ratio: 4 / 3;
   border-radius: 32px;
   background:
-    radial-gradient(circle at 15% 0%, rgba(255, 255, 255, 0.4), transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(255, 77, 253, 0.6), transparent 65%),
-    radial-gradient(circle at 0% 100%, rgba(125, 227, 255, 0.5), transparent 60%),
-    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1));
+    conic-gradient(
+      from 210deg at 10% 85%,
+      rgba(255, 0, 128, 0.0) 0deg,
+      rgba(255, 0, 128, 0.9) 25deg,
+      rgba(255, 255, 0, 0.9) 65deg,
+      rgba(0, 255, 128, 0.9) 105deg,
+      rgba(0, 255, 255, 0.9) 145deg,
+      rgba(100, 149, 255, 0.9) 185deg,
+      rgba(255, 0, 255, 0.9) 225deg,
+      rgba(255, 0, 128, 0.0) 270deg
+    ),
+    radial-gradient(circle at 5% 0%, rgba(255, 0, 204, 0.5), transparent 55%),
+    radial-gradient(circle at 90% 10%, rgba(0, 204, 255, 0.45), transparent 55%),
+    radial-gradient(circle at 15% 70%, rgba(255, 184, 0, 0.4), transparent 55%),
+    radial-gradient(circle at 50% 50%, #050008 0%, #000000 75%);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.16),
     0 30px 80px rgba(0, 0, 0, 0.95),
@@ -331,15 +358,16 @@ a:hover { text-decoration: underline; }
   overflow: hidden;
 }
 
-/* Fine grid overlay on top of the glowing panel */
+/* Fine dot-mask overlay on top of the glowing panel */
 .hero-orbit::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
-  background-size: 12px 12px;
+    radial-gradient(circle, rgba(255, 255, 255, 0.32) 0.5px, transparent 0.5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.16) 0.5px, transparent 0.5px);
+  background-size: 3px 3px, 3px 3px;
+  background-position: 0 0, 1.5px 1.5px;
   mix-blend-mode: soft-light;
   opacity: 0.8;
 }
