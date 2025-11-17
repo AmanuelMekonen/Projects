@@ -383,7 +383,9 @@ a:hover { text-decoration: underline; }
   max-width: none;
   margin: 0;
   padding: 48px 0 40px;
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), rgba(3, 7, 18, 0.96));
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), #020008);
+  position: relative;
+  overflow: hidden;
 }
 
 .section-panels-inner {
