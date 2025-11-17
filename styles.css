@@ -131,7 +131,7 @@ a:hover { text-decoration: underline; }
   padding: 0 16px 24px;
 }
 
-/* Main hero card with CRT-style dot mask, glow, and rounded corners */
+/* Main hero card with grid overlay, glow, and rounded corners */
 .hero-grid {
   border-radius: 24px;
   padding: 24px;
@@ -148,16 +148,15 @@ a:hover { text-decoration: underline; }
     0 0 60px rgba(255, 77, 253, 0.35);
 }
 
-/* Dot-mask overlay inside the hero card to mimic a CRT */
+/* Grid lines overlay inside the hero card */
 .hero-grid::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.26) 0.7px, transparent 0.7px),
-    radial-gradient(circle, rgba(255, 77, 253, 0.35) 0.7px, transparent 0.7px);
-  background-size: 4px 4px, 4px 4px;
-  background-position: 0 0, 2px 2px;
+    linear-gradient(to right, rgba(255, 77, 253, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 77, 253, 0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
   opacity: 0.45;
   mix-blend-mode: screen;
   pointer-events: none;
