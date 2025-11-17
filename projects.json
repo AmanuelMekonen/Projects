@@ -14,7 +14,7 @@
   {
     "id": "wearable-ppg-platform",
     "title": "Wearable PPG Platform",
-    "summary": "ESP32 S3 sensor stack for heart rate and SpO2 with FRAM logging.",
+    "summary": "ESP32 S3 sensor stacks for heart rate and SpO2 with FRAM logging.",
     "tags": [
       "ESP32",
       "PPG",
@@ -31,6 +31,39 @@
       "ESP32",
       "Python",
       "BLE"
+    ],
+    "link": "#"
+  },
+  {
+    "id": "template-autonomy-stack",
+    "title": "Template: Autonomy Stack",
+    "summary": "Placeholder robotics autonomy stack integrating perception, planning, and control.",
+    "tags": [
+      "ROS 2",
+      "Navigation",
+      "Perception"
+    ],
+    "link": "#"
+  },
+  {
+    "id": "template-hardware-platform",
+    "title": "Template: Hardware Platform",
+    "summary": "Placeholder embedded hardware platform with mixed-signal sensing and wireless links.",
+    "tags": [
+      "MCU",
+      "Sensors",
+      "Wireless"
+    ],
+    "link": "#"
+  },
+  {
+    "id": "template-experimental-interface",
+    "title": "Template: Experimental Interface",
+    "summary": "Placeholder interactive interface concept combining realtime graphics and haptics.",
+    "tags": [
+      "UI",
+      "Real-time",
+      "Prototype"
     ],
     "link": "#"
   }
