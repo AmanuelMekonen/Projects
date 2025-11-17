@@ -29,10 +29,11 @@ async function loadProjectsPanels() {
     const res = await fetch("projects.json");
     const projects = await res.json(); // array of project objects
 
-    container.innerHTML = projects.map(p => {
-      const id = p.id || encodeURIComponent(p.title.toLowerCase().replace(/\s+/g, "-"));
-      const tags = (p.tags || []).slice(0, 3).join(" · ");
-      return `
+    container.innerHTML = projects
+      .map((p) => {
+        const id = p.id || encodeURIComponent(p.title.toLowerCase().replace(/\s+/g, "-"));
+        const tags = (p.tags || []).slice(0, 3).join(" · ");
+        return `
         <a class="project-panel" href="project.html?id=${id}">
           <div class="project-panel-inner">
             <div class="project-panel-header">
@@ -44,12 +45,13 @@ async function loadProjectsPanels() {
               <p class="project-panel-summary">${p.summary}</p>
             </div>
             <div class="project-panel-footer">
-              <span class="project-panel-arrow">View ↗</span>
+              <span class="project-panel-arrow">View</span>
             </div>
           </div>
         </a>
       `;
-    }).join("");
+      })
+      .join("");
   } catch (e) {
     console.error("Failed to load projects panels", e);
   }
@@ -67,7 +69,9 @@ async function loadProjectDetail() {
   try {
     const res = await fetch("projects.json");
     const projects = await res.json();
-    const project = projects.find(p => (p.id || p.title.toLowerCase().replace(/\s+/g, "-")) === id);
+    const project = projects.find(
+      (p) => (p.id || p.title.toLowerCase().replace(/\s+/g, "-")) === id
+    );
     if (!project) {
       detailRoot.innerHTML = `<p>Project not found.</p>`;
       return;
@@ -99,12 +103,16 @@ async function loadProjectDetail() {
             <h2>Stack</h2>
             <p>${tags}</p>
           </div>
-          ${project.link && project.link !== "#" ? `
+          ${
+            project.link && project.link !== "#"
+              ? `
           <div class="project-detail-meta-block">
             <h2>Link</h2>
             <p><a href="${project.link}" target="_blank" rel="noopener">Open project ↗</a></p>
           </div>
-          ` : ""}
+          `
+              : ""
+          }
           <div class="project-detail-meta-block project-detail-meta-back">
             <a href="index.html">← Back to projects</a>
           </div>
