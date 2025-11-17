@@ -232,7 +232,7 @@ a:hover { text-decoration: underline; }
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 16px;
 }
 
@@ -408,7 +408,20 @@ a:hover { text-decoration: underline; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
+}
+
+.project-panel-image-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.project-panel-image {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .project-panel-header {

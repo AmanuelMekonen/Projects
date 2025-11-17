@@ -36,6 +36,13 @@ async function loadProjectsPanels() {
         return `
         <a class="project-panel" href="project.html?id=${id}">
           <div class="project-panel-inner">
+            <div class="project-panel-image-wrap">
+              <img
+                class="project-panel-image"
+                src="https://via.placeholder.com/640x360.png?text=Project+Preview"
+                alt="Project preview placeholder"
+              >
+            </div>
             <div class="project-panel-header">
               <span class="project-panel-label">Project</span>
               <span class="project-panel-tagline">${tags}</span>
