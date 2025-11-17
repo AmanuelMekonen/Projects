@@ -77,7 +77,9 @@ body::after {
 
 /* Global link colors */
 a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a:hover {
+  text-decoration: none;
+}
 
 /* Header + hero share the same grid / glow background */
 .site-header {
@@ -312,6 +314,16 @@ a:hover { text-decoration: underline; }
   color: rgba(209, 213, 219, 0.95);
 }
 
+.hero-meta-text a {
+  display: inline-block;
+  transition: transform 0.15s ease-out, text-shadow 0.15s ease-out;
+}
+
+.hero-meta-text a:hover {
+  transform: scale(1.03);
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.7);
+}
+
 .hero-meta-label {
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -326,23 +338,33 @@ a:hover { text-decoration: underline; }
   padding: 10px 16px;
   border-radius: 12px;
   background:
-    radial-gradient(circle at 0 0, #ffffff, var(--accent-yellow));
-  color: white;
+    radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.9), #e2d94b);
+  color: #111827;
   font-weight: 700;
   font-family: var(--font-heading);
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 0 30px rgba(249, 255, 74, 0.85);
+    0 0 0 1px rgba(0, 0, 0, 0.25),
+    0 0 22px rgba(249, 255, 74, 0.55);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
 }
 
 /* Secondary/ghost button */
 .btn-secondary {
-  background: transparent;
-  border-color: var(--border);
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.35);
   color: var(--fg);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.btn:hover,
+.btn-secondary:hover {
+  transform: scale(1.03);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 28px rgba(249, 255, 74, 0.65);
 }
 
 /* Main content sections */
@@ -513,7 +535,7 @@ a:hover { text-decoration: underline; }
 }
 
 .project-panel:hover .project-panel-inner {
-  transform: translateY(-2px);
+  transform: scale(1.02);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.06),
     0 26px 70px rgba(0, 0, 0, 0.95);
@@ -636,6 +658,13 @@ a:hover { text-decoration: underline; }
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: rgba(148, 163, 184, 0.95);
+  display: inline-block;
+  transition: transform 0.15s ease-out, text-shadow 0.15s ease-out;
+}
+
+.project-header-back:hover {
+  transform: scale(1.03);
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.7);
 }
 
 .project-main {
