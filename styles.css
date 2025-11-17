@@ -162,6 +162,19 @@ a:hover { text-decoration: underline; }
   pointer-events: none;
 }
 
+/* Dot-matrix overlay on top of the grid to mimic a CRT mask */
+.hero-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.28) 0.7px, transparent 0.7px);
+  background-size: 4px 4px;
+  mix-blend-mode: soft-light;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 /* Two-column layout: copy on the left, hero visual on the right */
 .hero-inner {
   position: relative;
