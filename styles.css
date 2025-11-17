@@ -3,15 +3,17 @@
 :root {
   --font-heading: "DotGothic16", system-ui, sans-serif;
   --font-body: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --bg: #050008;
-  --bg-alt: #050008;
-  --fg: #f9fafb;
-  --muted: #9ca3af;
-  --accent: #ff4dfd;
-  --accent-soft: rgba(255, 77, 253, 0.25);
-  --accent-strong: rgba(255, 77, 253, 0.75);
-  --card: #07010d;
-  --border: #1f1a2b;
+  --bg: #020008;               /* deep CRT black */
+  --bg-alt: #020008;
+  --fg: #fdfdfd;               /* bright foreground */
+  --muted: #8f94a3;            /* slightly cooler muted text */
+  --accent: #ff4dfd;           /* magenta neon */
+  --accent-yellow: #f9ff4a;    /* CRT yellow */
+  --accent-green: #69ff9c;     /* CRT green */
+  --accent-soft: rgba(255, 77, 253, 0.35);
+  --accent-strong: rgba(255, 77, 253, 0.9);
+  --card: #05000c;             /* near‑black card */
+  --border: #22162f;
 }
 
 /* Light theme overrides using the same tokens (currently disabled)
@@ -47,9 +49,9 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 0% 0%, rgba(255, 77, 253, 0.16), transparent 55%),
-    radial-gradient(circle at 85% 20%, rgba(125, 227, 255, 0.16), transparent 55%),
-    radial-gradient(circle at 20% 90%, rgba(255, 184, 108, 0.13), transparent 50%);
+    radial-gradient(circle at 0% 0%, rgba(255, 77, 253, 0.22), transparent 55%),
+    radial-gradient(circle at 85% 20%, rgba(121, 229, 255, 0.22), transparent 55%),
+    radial-gradient(circle at 20% 90%, rgba(249, 255, 74, 0.18), transparent 50%);
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: -2;
@@ -62,12 +64,12 @@ body::after {
   inset: 0;
   background-image: repeating-linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.8) 0,
-    rgba(0, 0, 0, 0.8) 1px,
-    rgba(0, 0, 0, 0.5) 2px,
-    rgba(0, 0, 0, 0.5) 3px
+    rgba(0, 0, 0, 0.9) 0,
+    rgba(0, 0, 0, 0.9) 1px,
+    rgba(0, 0, 0, 0.6) 2px,
+    rgba(0, 0, 0, 0.6) 3px
   );
-  opacity: 0.5;
+  opacity: 0.65;
   pointer-events: none;
   mix-blend-mode: soft-light;
   z-index: -1;
@@ -80,7 +82,7 @@ a:hover { text-decoration: underline; }
 /* Header background with radial glow and divider */
 .site-header {
   border-bottom: 1px solid rgba(255, 109, 253, 0.24);
-  background: radial-gradient(circle at top, rgba(255, 77, 253, 0.35), transparent 52%);
+  background: radial-gradient(circle at top, rgba(255, 77, 253, 0.45), transparent 52%);
   padding-bottom: 32px;
 }
 
@@ -136,16 +138,16 @@ a:hover { text-decoration: underline; }
   border-radius: 24px;
   padding: 24px;
   background:
-    linear-gradient(135deg, rgba(255, 77, 253, 0.2), transparent 55%),
-    radial-gradient(circle at 20% 0%, rgba(126, 212, 255, 0.2), transparent 55%),
-    linear-gradient(120deg, #060115, #050008);
+    linear-gradient(135deg, rgba(255, 77, 253, 0.28), transparent 55%),
+    radial-gradient(circle at 20% 0%, rgba(126, 212, 255, 0.26), transparent 55%),
+    linear-gradient(120deg, #05000c, #000000);
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.04),
-    0 24px 80px rgba(0, 0, 0, 0.85),
-    0 0 60px rgba(255, 77, 253, 0.35);
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 28px 90px rgba(0, 0, 0, 0.95),
+    0 0 72px rgba(255, 77, 253, 0.5);
 }
 
 /* Grid lines overlay inside the hero card */
@@ -168,8 +170,8 @@ a:hover { text-decoration: underline; }
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.28) 0.7px, transparent 0.7px);
-  background-size: 4px 4px;
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 0.7px, transparent 0.7px);
+  background-size: 3px 3px;
   mix-blend-mode: soft-light;
   opacity: 0.6;
   pointer-events: none;
@@ -202,7 +204,7 @@ a:hover { text-decoration: underline; }
   font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(249, 250, 251, 0.72);
+  color: rgba(249, 250, 251, 0.75);
   margin: 0 0 12px;
   font-family: var(--font-body);
 }
@@ -216,13 +218,13 @@ a:hover { text-decoration: underline; }
   text-transform: uppercase;
   letter-spacing: 0.18em;
   text-shadow:
-    0 0 12px rgba(0, 0, 0, 0.85),
-    0 0 24px rgba(255, 77, 253, 0.5);
+    0 0 18px rgba(0, 0, 0, 0.95),
+    0 0 26px rgba(255, 77, 253, 0.7);
 }
 
 /* Supporting paragraph under the headline */
 .hero-subtitle {
-  color: var(--muted);
+  color: rgba(156, 163, 175, 0.92);
   font-size: clamp(15px, 2.2vw, 17px);
   margin: 0 0 18px;
 }
@@ -240,16 +242,17 @@ a:hover { text-decoration: underline; }
   display: inline-block;
   padding: 10px 16px;
   border-radius: 12px;
-  background: radial-gradient(circle at 0 0, #ffffff, var(--accent));
+  background:
+    radial-gradient(circle at 0 0, #ffffff, var(--accent-yellow));
   color: white;
   font-weight: 700;
   font-family: var(--font-heading);
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 0 24px var(--accent-strong);
+    0 0 30px rgba(249, 255, 74, 0.85);
 }
 
 /* Secondary/ghost button */
