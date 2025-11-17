@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Amanuel Fesseha — Portfolio</title>
+  <title>Amanuel Fesseha – Portfolio</title>
   <meta name="description" content="Portfolio of Amanuel Fesseha. Projects, skills, and contact.">
   <!-- Pixel / terminal inspired fonts for headings and body -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,72 +16,99 @@
   <header class="site-header">
     <!-- Top navigation bar (logo; theme toggle is commented out) -->
     <nav class="nav">
-      <a class="logo" href="#">AF</a>
+      <a class="logo" href="index.html">AF</a>
       <!-- Theme toggle button removed from the UI for now
       <button id="themeToggle" aria-label="Toggle theme">Theme</button>
       -->
     </nav>
 
-    <!-- Hero: intro text on the left, visual on the right -->
+    <!-- Hero built as tall panels inspired by editorial layouts -->
     <section class="hero hero-grid">
-      <div class="hero-inner">
-        <!-- Main introductory copy that visitors read first -->
-        <div class="hero-copy">
-          <p class="hero-kicker">Engineering • Robotics • XR</p>
-          <h1>Designing systems for the real and virtual world.</h1>
-          <p class="hero-subtitle">
-            I build hardware, write software, and prototype interactive experiences with a focus
-            on robotics, embedded systems, and immersive interfaces.
-          </p>
-          <div class="hero-cta">
-            <a href="#projects" class="btn">View Projects</a>
-            <a href="#contact" class="btn btn-secondary">Contact</a>
+      <div class="hero-inner hero-panels">
+        <!-- Left rail label -->
+        <div class="hero-rail hero-rail-left">
+          <span class="hero-rail-text">Portfolio 2025 · Robotics · XR</span>
+        </div>
+
+        <!-- Central "Start" style panel -->
+        <div class="hero-panel hero-panel-main">
+          <div class="hero-panel-inner">
+            <p class="hero-kicker">Start</p>
+            <h1>Engineering systems for the physical and virtual world.</h1>
+            <p class="hero-subtitle">
+              Robotics, embedded systems, and immersive interfaces — from first prototype
+              through deployment.
+            </p>
+            <div class="hero-cta hero-cta-main">
+              <a href="#projects" class="btn">View Projects</a>
+              <a href="#about" class="btn btn-secondary">About</a>
+            </div>
+            <div class="hero-scroll-indicator">
+              <span class="hero-scroll-label">Scroll</span>
+              <span class="hero-scroll-arrow">↓</span>
+            </div>
           </div>
         </div>
 
-        <!-- Visual placeholder where a future 3D/XR render can go -->
-        <div class="hero-visual">
-          <div class="hero-orbit">
-            <div class="hero-orbit-core"></div>
-            <div class="hero-orbit-ring hero-orbit-ring--outer"></div>
-            <div class="hero-orbit-ring hero-orbit-ring--inner"></div>
+        <!-- Right-side info strip -->
+        <div class="hero-panel hero-panel-meta">
+          <div class="hero-panel-inner hero-panel-inner-meta">
+            <div class="hero-meta-block">
+              <h2 class="hero-meta-heading">Amanuel Fesseha</h2>
+              <p class="hero-meta-text">
+                Engineer & builder working across robotics, embedded hardware, and interactive tech.
+              </p>
+            </div>
+            <div class="hero-meta-block hero-meta-block-contact">
+              <p class="hero-meta-label">Contact</p>
+              <p class="hero-meta-text">
+                <a href="mailto:amanuel@example.com">amanuel@example.com</a>
+              </p>
+              <p class="hero-meta-text">
+                <a href="https://github.com/">github.com</a> ·
+                <a href="https://www.linkedin.com/">LinkedIn</a>
+              </p>
+            </div>
           </div>
-          <p class="hero-visual-caption">
-            Placeholder for future 3D render or XR visual.
-          </p>
         </div>
       </div>
     </section>
   </header>
 
   <main>
-    <!-- Projects section: cards are injected here from projects.json via script.js -->
-    <section id="projects" class="section">
-      <h2>Projects</h2>
-      <div id="projectsGrid" class="grid"></div>
+    <!-- Projects as tall, clickable neon panels built from projects.json via script.js -->
+    <section id="projects" class="section section-panels">
+      <div class="section-header-row">
+        <h2>Projects</h2>
+        <span class="section-tag">Selected work</span>
+      </div>
+      <div id="projectsPanels" class="projects-panels"></div>
     </section>
 
-    <!-- About section: biography and skills list -->
-    <section id="about" class="section">
-      <h2>About</h2>
-      <p>
-        I work on robotics, embedded systems, and machine learning. I enjoy taking ideas
-        from sketch to prototype to real deployments. This site is a simple static build that
-        can be hosted on GitHub Pages.
-      </p>
-      <ul class="facts">
-        <li>Languages: Python, C or C++, JavaScript</li>
-        <li>Platforms: ESP32, ROS 2, Linux</li>
-        <li>Tools: Fusion 360, KiCad, Jupyter</li>
-      </ul>
-    </section>
-
-    <!-- Contact section: email and social links that appear on the page -->
-    <section id="contact" class="section">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:amanuel@example.com">amanuel@example.com</a></p>
-      <p>GitHub: <a href="https://github.com/">github.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/">LinkedIn</a></p>
+    <!-- About section: biography and skills list inside a compact neon card -->
+    <section id="about" class="section section-about">
+      <div class="about-panel">
+        <h2>About</h2>
+        <p>
+          I work on robotics, embedded systems, and machine learning. I enjoy taking ideas
+          from sketch to prototype to real deployments, with a focus on high‑reliability systems
+          and expressive interfaces.
+        </p>
+        <div class="about-columns">
+          <div>
+            <h3>Languages</h3>
+            <p>Python · C/C++ · JavaScript</p>
+          </div>
+          <div>
+            <h3>Platforms</h3>
+            <p>ESP32 · ROS 2 · Linux</p>
+          </div>
+          <div>
+            <h3>Tools</h3>
+            <p>Fusion 360 · KiCad · Jupyter</p>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 

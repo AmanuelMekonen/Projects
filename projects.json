@@ -1,5 +1,6 @@
 [
   {
+    "id": "bio-inspired-adaptive-leaping-system",
     "title": "Bio Inspired Adaptive Leaping System",
     "summary": "Kangaroo style biped with custom brushless actuators and ROS 2 Gazebo sim.",
     "tags": [
@@ -11,6 +12,7 @@
     "link": "#"
   },
   {
+    "id": "wearable-ppg-platform",
     "title": "Wearable PPG Platform",
     "summary": "ESP32 S3 sensor stack for heart rate and SpO2 with FRAM logging.",
     "tags": [
@@ -22,6 +24,7 @@
     "link": "#"
   },
   {
+    "id": "reaction-time-trainer",
     "title": "Reaction Time Trainer",
     "summary": "LED ring training device with microsecond timing and desktop app.",
     "tags": [
