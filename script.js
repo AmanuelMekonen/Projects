@@ -1,6 +1,8 @@
 // Theme toggle and project rendering for the portfolio
 
-// Immediately invoked function that wires up the dark/light theme toggle
+// Immediately invoked function that wired up the dark/light theme toggle
+// (disabled for now to keep a single neon-dark theme)
+/*
 (function() {
   const root = document.documentElement;
   const saved = localStorage.getItem("theme"); // read previously saved theme, if any
@@ -16,6 +18,7 @@
     localStorage.setItem("theme", next); // remember choice for future visits
   });
 })();
+*/
 
 // Load project data from projects.json and render it into #projectsGrid
 async function loadProjects() {

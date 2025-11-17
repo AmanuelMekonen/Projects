@@ -12,7 +12,7 @@
   --border: #1f1a2b;
 }
 
-/* Light theme overrides using the same tokens */
+/* Light theme overrides using the same tokens (currently disabled)
 [data-theme="light"] {
   --bg: #f4f4fb;
   --bg-alt: #ffffff;
@@ -24,6 +24,7 @@
   --card: #ffffff;
   --border: #e5e7eb;
 }
+*/
 
 /* Base layout and typography */
 * { box-sizing: border-box; }
