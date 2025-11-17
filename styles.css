@@ -1,4 +1,5 @@
 /* Neon sci-fi grid portfolio theme */
+/* Color tokens for dark mode and neon accents */
 :root {
   --bg: #050008;
   --bg-alt: #050008;
@@ -11,6 +12,7 @@
   --border: #1f1a2b;
 }
 
+/* Light theme overrides using the same tokens */
 [data-theme="light"] {
   --bg: #f4f4fb;
   --bg-alt: #ffffff;
@@ -23,6 +25,7 @@
   --border: #e5e7eb;
 }
 
+/* Base layout and typography */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
@@ -35,6 +38,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Large radial glow gradients behind the page */
 body::before {
   content: "";
   position: fixed;
@@ -48,6 +52,7 @@ body::before {
   z-index: -2;
 }
 
+/* Fine vertical scanlines for a subtle pixel feel */
 body::after {
   content: "";
   position: fixed;
@@ -65,15 +70,18 @@ body::after {
   z-index: -1;
 }
 
+/* Global link colors */
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* Header background with radial glow and divider */
 .site-header {
   border-bottom: 1px solid rgba(255, 109, 253, 0.24);
   background: radial-gradient(circle at top, rgba(255, 77, 253, 0.35), transparent 52%);
   padding-bottom: 32px;
 }
 
+/* Top navigation bar: logo on the left, controls on the right */
 .nav {
   max-width: 1100px;
   margin: 0 auto;
@@ -83,6 +91,7 @@ a:hover { text-decoration: underline; }
   justify-content: space-between;
 }
 
+/* Small logo block used for initials */
 .logo {
   display: inline-flex;
   width: 36px;
@@ -97,6 +106,7 @@ a:hover { text-decoration: underline; }
   letter-spacing: 0.5px;
 }
 
+/* Theme toggle button that flips dark/light mode */
 #themeToggle {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.35);
@@ -109,12 +119,14 @@ a:hover { text-decoration: underline; }
   letter-spacing: 0.08em;
 }
 
+/* Shell for the hero section container */
 .hero {
   max-width: 1100px;
   margin: 32px auto 48px;
   padding: 0 16px 24px;
 }
 
+/* Main hero card with grid, glow, and rounded corners */
 .hero-grid {
   border-radius: 24px;
   padding: 24px;
@@ -131,6 +143,7 @@ a:hover { text-decoration: underline; }
     0 0 60px rgba(255, 77, 253, 0.35);
 }
 
+/* Grid lines overlay inside the hero card */
 .hero-grid::before {
   content: "";
   position: absolute;
@@ -144,6 +157,7 @@ a:hover { text-decoration: underline; }
   pointer-events: none;
 }
 
+/* Two-column layout: copy on the left, hero visual on the right */
 .hero-inner {
   position: relative;
   display: grid;
@@ -160,10 +174,12 @@ a:hover { text-decoration: underline; }
   }
 }
 
+/* Left side of hero: text stack */
 .hero-copy {
   max-width: 520px;
 }
 
+/* Small label above the hero title */
 .hero-kicker {
   font-size: 13px;
   letter-spacing: 0.18em;
@@ -172,6 +188,7 @@ a:hover { text-decoration: underline; }
   margin: 0 0 12px;
 }
 
+/* Main hero headline */
 .hero h1 {
   font-size: clamp(30px, 5vw, 46px);
   line-height: 1.1;
@@ -181,12 +198,14 @@ a:hover { text-decoration: underline; }
     0 0 24px rgba(255, 77, 253, 0.5);
 }
 
+/* Supporting paragraph under the headline */
 .hero-subtitle {
   color: var(--muted);
   font-size: clamp(15px, 2.2vw, 17px);
   margin: 0 0 18px;
 }
 
+/* Buttons row under the hero text */
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
@@ -194,6 +213,7 @@ a:hover { text-decoration: underline; }
   margin-top: 8px;
 }
 
+/* Primary call-to-action button */
 .btn {
   display: inline-block;
   padding: 10px 16px;
@@ -207,12 +227,14 @@ a:hover { text-decoration: underline; }
     0 0 24px var(--accent-strong);
 }
 
+/* Secondary/ghost button */
 .btn-secondary {
   background: transparent;
   border-color: var(--border);
   color: var(--fg);
 }
 
+/* Main content sections: Projects, About, Contact */
 .section {
   max-width: 1100px;
   margin: 0 auto;
@@ -220,17 +242,20 @@ a:hover { text-decoration: underline; }
   background: linear-gradient(180deg, rgba(9, 9, 11, 0.88), rgba(3, 7, 18, 0.92));
 }
 
+/* Section headings */
 .section h2 {
   font-size: 24px;
   margin: 0 0 16px;
 }
 
+/* Responsive grid used for project cards */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 16px;
 }
 
+/* Individual project / content cards */
 .card {
   border: 1px solid var(--border);
   background: var(--card);
@@ -242,17 +267,20 @@ a:hover { text-decoration: underline; }
   min-height: 160px;
 }
 
+/* Card title */
 .card h3 {
   margin: 0;
   font-size: 18px;
 }
 
+/* Card body text */
 .card p {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
 }
 
+/* Tag chips under each project card */
 .badges { display: flex; flex-wrap: wrap; gap: 6px; }
 .badge {
   font-size: 12px;
@@ -263,6 +291,7 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
 }
 
+/* Footer at the bottom of the page */
 .site-footer {
   max-width: 1100px;
   margin: 32px auto;
@@ -273,6 +302,7 @@ a:hover { text-decoration: underline; }
 }
 
 /* Hero visual placeholder for future 3D/XR artwork */
+/* Right side of hero: glowing "3D/XR" panel and caption */
 .hero-visual {
   position: relative;
   display: flex;
@@ -282,6 +312,7 @@ a:hover { text-decoration: underline; }
   gap: 8px;
 }
 
+/* Main glowing panel that can later be replaced by a real 3D render */
 .hero-orbit {
   position: relative;
   width: clamp(220px, 26vw, 320px);
@@ -299,6 +330,7 @@ a:hover { text-decoration: underline; }
   overflow: hidden;
 }
 
+/* Fine grid overlay on top of the glowing panel */
 .hero-orbit::before {
   content: "";
   position: absolute;
@@ -311,6 +343,7 @@ a:hover { text-decoration: underline; }
   opacity: 0.8;
 }
 
+/* Bright core glow sitting inside the panel */
 .hero-orbit-core {
   position: absolute;
   inset: 24%;
@@ -322,6 +355,7 @@ a:hover { text-decoration: underline; }
   filter: blur(0.4px);
 }
 
+/* Orbit rings that surround the core glow */
 .hero-orbit-ring {
   position: absolute;
   inset: 12%;
@@ -329,18 +363,21 @@ a:hover { text-decoration: underline; }
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+/* Outer orbit ring with strong neon glow */
 .hero-orbit-ring--outer {
   inset: 10%;
   border-color: rgba(255, 77, 253, 0.5);
   box-shadow: 0 0 24px rgba(255, 77, 253, 0.8);
 }
 
+/* Inner dashed ring for extra detail */
 .hero-orbit-ring--inner {
   inset: 22%;
   border-style: dashed;
   border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Small label under the hero visual */
 .hero-visual-caption {
   font-size: 11px;
   text-transform: uppercase;

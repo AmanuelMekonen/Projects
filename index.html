@@ -8,13 +8,18 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Site header with navigation and hero -->
   <header class="site-header">
+    <!-- Top navigation bar (logo + theme toggle) -->
     <nav class="nav">
       <a class="logo" href="#">AF</a>
       <button id="themeToggle" aria-label="Toggle theme">Theme</button>
     </nav>
+
+    <!-- Hero: intro text on the left, visual on the right -->
     <section class="hero hero-grid">
       <div class="hero-inner">
+        <!-- Main introductory copy that visitors read first -->
         <div class="hero-copy">
           <p class="hero-kicker">Engineering • Robotics • XR</p>
           <h1>Designing systems for the real and virtual world.</h1>
@@ -27,6 +32,8 @@
             <a href="#contact" class="btn btn-secondary">Contact</a>
           </div>
         </div>
+
+        <!-- Visual placeholder where a future 3D/XR render can go -->
         <div class="hero-visual">
           <div class="hero-orbit">
             <div class="hero-orbit-core"></div>
@@ -42,11 +49,13 @@
   </header>
 
   <main>
+    <!-- Projects section: cards are injected here from projects.json via script.js -->
     <section id="projects" class="section">
       <h2>Projects</h2>
       <div id="projectsGrid" class="grid"></div>
     </section>
 
+    <!-- About section: biography and skills list -->
     <section id="about" class="section">
       <h2>About</h2>
       <p>
@@ -61,6 +70,7 @@
       </ul>
     </section>
 
+    <!-- Contact section: email and social links that appear on the page -->
     <section id="contact" class="section">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:amanuel@example.com">amanuel@example.com</a></p>
@@ -69,6 +79,7 @@
     </section>
   </main>
 
+  <!-- Footer that appears at the bottom of the site -->
   <footer class="site-footer">
     <small>&copy; 2025 Amanuel Fesseha. All rights reserved.</small>
   </footer>
