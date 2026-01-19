@@ -4,123 +4,238 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Amanuel Fesseha - Portfolio</title>
-  <meta name="description" content="Portfolio of Amanuel Fesseha. Projects, skills, and contact.">
-  <!-- Serif display + clean sans fonts -->
+  <meta name="description" content="VS Code inspired portfolio for Amanuel Fesseha.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/codicon/codicon.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Site header with navigation and hero -->
-  <header class="site-header">
-    <!-- Top navigation bar (logo; theme toggle is commented out) -->
-    <nav class="nav">
-      <a class="logo" href="index.html">አ</a>
-      <!-- Theme toggle button removed from the UI for now
-      <button id="themeToggle" aria-label="Toggle theme">Theme</button>
-      -->
-    </nav>
+  <div class="app">
+    <aside class="activity-bar" aria-label="Primary">
+      <div class="activity-group">
+        <button class="activity-icon is-active" type="button" aria-label="Explorer" title="Explorer" id="activityExplorer">
+          <span class="activity-icon-svg codicon codicon-files" aria-hidden="true"></span>
+        </button>
+        <button class="activity-icon" type="button" aria-label="Search" title="Search">
+          <span class="activity-icon-svg codicon codicon-search" aria-hidden="true"></span>
+        </button>
+        <button class="activity-icon" type="button" aria-label="Source Control" title="Source Control">
+          <span class="activity-icon-svg codicon codicon-source-control" aria-hidden="true"></span>
+        </button>
+        <button class="activity-icon" type="button" aria-label="Run and Debug" title="Run and Debug">
+          <span class="activity-icon-svg codicon codicon-debug-alt" aria-hidden="true"></span>
+        </button>
+        <button class="activity-icon" type="button" aria-label="Extensions" title="Extensions">
+          <span class="activity-icon-svg codicon codicon-extensions" aria-hidden="true"></span>
+        </button>
+        <button class="activity-icon" type="button" aria-label="Testing" title="Testing">
+          <span class="activity-icon-svg codicon codicon-beaker" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="activity-group activity-group-bottom">
+        <button class="activity-icon" type="button" aria-label="Account" title="Account">
+          <span class="activity-icon-svg codicon codicon-account" aria-hidden="true"></span>
+        </button>
+        <button class="activity-icon" type="button" aria-label="Settings" title="Settings">
+          <span class="activity-icon-svg codicon codicon-settings-gear" aria-hidden="true"></span>
+        </button>
+      </div>
+    </aside>
 
-    <!-- Hero built as tall panels inspired by editorial layouts -->
-    <section class="hero hero-grid">
-      <div class="hero-inner hero-panels">
-        <!-- Left rail label -->
-        <div class="hero-rail hero-rail-left">
-          <span class="hero-rail-text">Portfolio 2025 | Robotics | XR</span>
-        </div>
+    <aside class="sidebar" aria-label="Explorer">
+      <div class="sidebar-title">
+        <span>EXPLORER</span>
+        <button class="sidebar-title-action" type="button" aria-label="Explorer actions" title="Explorer actions">
+          <span class="codicon codicon-ellipsis" aria-hidden="true"></span>
+        </button>
+      </div>
 
-        <!-- Central "Start" style panel -->
-        <div class="hero-panel hero-panel-main">
-          <div class="hero-panel-inner">
-            <p class="hero-kicker">Hello</p>
-            <h1>Engineering systems for the physical and virtual world.</h1>
-            <p class="hero-subtitle">
-              Robotics, embedded systems, and immersive interfaces from first prototype
-              through deployment.
-            </p>
-            <div class="hero-cta hero-cta-main">
-              <a href="#projects" class="btn">View Projects</a>
-              <a href="#about" class="btn btn-secondary">About</a>
-            </div>
-            <div class="hero-scroll-indicator">
-              <span class="hero-scroll-label">Scroll</span>
-              <span class="hero-scroll-arrow">v</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right-side info strip with portrait placeholder -->
-        <div class="hero-panel hero-panel-meta">
-          <div class="hero-panel-inner hero-panel-inner-meta">
-            <figure class="hero-photo">
-              <img src="https://via.placeholder.com/420x520.png?text=Your+Portrait" alt="Portrait placeholder">
-            </figure>
-            <div class="hero-meta-block">
-              <h2 class="hero-meta-heading">Amanuel Fesseha</h2>
-              <p class="hero-meta-text">
-                Engineer and builder working across robotics, embedded hardware, and interactive tech.
-              </p>
-            </div>
-            <div class="hero-meta-block hero-meta-block-contact">
-              <p class="hero-meta-label">Contact</p>
-              <p class="hero-meta-text">
-                <a href="mailto:amanuel@example.com">amanuel@example.com</a>
-              </p>
-              <p class="hero-meta-text">
-                <a href="https://github.com/">github.com</a> ·
-                <a href="https://www.linkedin.com/">LinkedIn</a>
-              </p>
-            </div>
-          </div>
+      <div class="sidebar-section" data-section-id="open-editors" data-default="open">
+        <button class="sidebar-section-header" type="button" aria-expanded="true" aria-controls="sidebar-open-editors">
+          <span class="sidebar-section-chevron codicon codicon-chevron-right" aria-hidden="true"></span>
+          <span class="sidebar-section-title">OPEN EDITORS</span>
+        </button>
+        <div class="sidebar-section-body" id="sidebar-open-editors">
+          <button class="sidebar-file is-active" data-section="about" type="button">
+            <span class="file-icon file-icon--md codicon codicon-markdown" aria-hidden="true"></span>
+            <span>README.md</span>
+          </button>
+          <button class="sidebar-file" data-section="resume" type="button">
+            <span class="file-icon file-icon--pdf codicon codicon-file-pdf" aria-hidden="true"></span>
+            <span>Resume.pdf</span>
+          </button>
+          <button class="sidebar-file" data-section="projects" type="button">
+            <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
+            <span>Project.ipynb</span>
+          </button>
+          <button class="sidebar-file" data-section="contact" type="button">
+            <span class="file-icon file-icon--py codicon codicon-python" aria-hidden="true"></span>
+            <span>Contact.py</span>
+          </button>
         </div>
       </div>
-    </section>
-  </header>
 
-  <main>
-    <!-- Projects as tall, clickable neon panels built from projects.json via script.js -->
-    <section id="projects" class="section section-panels">
-      <div class="section-panels-inner">
-        <div class="section-header-row">
-          <h2>Projects</h2>
-          <span class="section-tag">Selected work</span>
-        </div>
-        <div id="projectsPanels" class="projects-panels"></div>
-      </div>
-    </section>
-
-    <!-- About section: biography and skills list inside a compact neon card -->
-    <section id="about" class="section section-about">
-      <div class="about-panel">
-        <h2>About</h2>
-        <p>
-          I work on robotics, embedded systems, and machine learning. I enjoy taking ideas
-          from sketch to prototype to real deployments, with a focus on high-reliability systems
-          and expressive interfaces.
-        </p>
-        <div class="about-columns">
-          <div>
-            <h3>Languages</h3>
-            <p>Python · C/C++ · JavaScript</p>
-          </div>
-          <div>
-            <h3>Platforms</h3>
-            <p>ESP32 · ROS 2 · Linux</p>
-          </div>
-          <div>
-            <h3>Tools</h3>
-            <p>Fusion 360 · KiCad · Jupyter</p>
-          </div>
+      <div class="sidebar-section" data-section-id="portfolio" data-default="open">
+        <button class="sidebar-section-header" type="button" aria-expanded="true" aria-controls="sidebar-portfolio">
+          <span class="sidebar-section-chevron codicon codicon-chevron-right" aria-hidden="true"></span>
+          <span class="sidebar-section-title">PORTFOLIO</span>
+        </button>
+        <div class="sidebar-section-body" id="sidebar-portfolio">
+          <button class="sidebar-file" data-section="about" type="button">
+            <span class="file-icon file-icon--md codicon codicon-markdown" aria-hidden="true"></span>
+            <span>README.md</span>
+          </button>
+          <button class="sidebar-file" data-section="resume" type="button">
+            <span class="file-icon file-icon--pdf codicon codicon-file-pdf" aria-hidden="true"></span>
+            <span>Resume.pdf</span>
+          </button>
+          <button class="sidebar-file" data-section="projects" type="button">
+            <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
+            <span>Project.ipynb</span>
+          </button>
+          <button class="sidebar-file" data-section="contact" type="button">
+            <span class="file-icon file-icon--py codicon codicon-python" aria-hidden="true"></span>
+            <span>Contact.py</span>
+          </button>
         </div>
       </div>
-    </section>
-  </main>
 
-  <!-- Footer that appears at the bottom of the site -->
-  <footer class="site-footer">
-    <small>&copy; 2025 Amanuel Fesseha. All rights reserved.</small>
-  </footer>
+      <div class="sidebar-section is-collapsed" data-section-id="outline" data-default="collapsed">
+        <button class="sidebar-section-header" type="button" aria-expanded="false" aria-controls="sidebar-outline">
+          <span class="sidebar-section-chevron codicon codicon-chevron-right" aria-hidden="true"></span>
+          <span class="sidebar-section-title">OUTLINE</span>
+        </button>
+        <div class="sidebar-section-body" id="sidebar-outline"></div>
+      </div>
+
+      <div class="sidebar-section is-collapsed" data-section-id="timeline" data-default="collapsed">
+        <button class="sidebar-section-header" type="button" aria-expanded="false" aria-controls="sidebar-timeline">
+          <span class="sidebar-section-chevron codicon codicon-chevron-right" aria-hidden="true"></span>
+          <span class="sidebar-section-title">TIMELINE</span>
+        </button>
+        <div class="sidebar-section-body" id="sidebar-timeline"></div>
+      </div>
+
+      <div class="sidebar-section is-collapsed" data-section-id="openxml" data-default="collapsed">
+        <button class="sidebar-section-header" type="button" aria-expanded="false" aria-controls="sidebar-openxml">
+          <span class="sidebar-section-chevron codicon codicon-chevron-right" aria-hidden="true"></span>
+          <span class="sidebar-section-title">OPENXML EXPLORER</span>
+        </button>
+        <div class="sidebar-section-body" id="sidebar-openxml"></div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="tab-bar" aria-label="Open files">
+        <div class="tab-strip" role="tablist">
+          <button class="tab is-active" data-section="about" id="tab-about" role="tab" aria-selected="true" type="button">
+            <span class="file-icon file-icon--md codicon codicon-markdown" aria-hidden="true"></span>
+            <span class="tab-label">README.md</span>
+            <span class="tab-close codicon codicon-close" aria-hidden="true"></span>
+          </button>
+          <button class="tab" data-section="resume" id="tab-resume" role="tab" aria-selected="false" type="button">
+            <span class="file-icon file-icon--pdf codicon codicon-file-pdf" aria-hidden="true"></span>
+            <span class="tab-label">Resume.pdf</span>
+            <span class="tab-close codicon codicon-close" aria-hidden="true"></span>
+          </button>
+          <button class="tab" data-section="projects" id="tab-projects" role="tab" aria-selected="false" type="button">
+            <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
+            <span class="tab-label">Project.ipynb</span>
+            <span class="tab-close codicon codicon-close" aria-hidden="true"></span>
+          </button>
+          <button class="tab" data-section="contact" id="tab-contact" role="tab" aria-selected="false" type="button">
+            <span class="file-icon file-icon--py codicon codicon-python" aria-hidden="true"></span>
+            <span class="tab-label">Contact.py</span>
+            <span class="tab-close codicon codicon-close" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="breadcrumb-bar" aria-hidden="true">
+        <span id="breadcrumbText" class="breadcrumb-text">README.md</span>
+      </div>
+
+      <div class="editor" role="region" aria-live="polite">
+        <section class="editor-section is-active" data-section="about" aria-labelledby="tab-about">
+          <pre class="code-block"><code>
+<span class="line"><span class="tok-comment"># README.md</span></span>
+<span class="line"></span>
+<span class="line"><span class="tok-variable">about</span> <span class="tok-operator">=</span> <span class="tok-punctuation">{</span></span>
+<span class="line">    <span class="tok-property">"name"</span><span class="tok-punctuation">:</span> <span class="tok-string">"Amanuel Fesseha"</span><span class="tok-punctuation">,</span></span>
+<span class="line">    <span class="tok-property">"tagline"</span><span class="tok-punctuation">:</span> <span class="tok-string">"Engineering systems for the physical and virtual world."</span><span class="tok-punctuation">,</span></span>
+<span class="line">    <span class="tok-property">"focus"</span><span class="tok-punctuation">:</span> <span class="tok-punctuation">[</span><span class="tok-string">"Robotics"</span><span class="tok-punctuation">,</span> <span class="tok-string">"Embedded Systems"</span><span class="tok-punctuation">,</span> <span class="tok-string">"XR"</span><span class="tok-punctuation">]</span><span class="tok-punctuation">,</span></span>
+<span class="line">    <span class="tok-property">"summary"</span><span class="tok-punctuation">:</span> <span class="tok-string">"From prototypes to deployed systems with reliable hardware and expressive interfaces."</span><span class="tok-punctuation">,</span></span>
+<span class="line">    <span class="tok-property">"location"</span><span class="tok-punctuation">:</span> <span class="tok-string">"Addis Ababa, ET"</span><span class="tok-punctuation">,</span></span>
+<span class="line">    <span class="tok-property">"email"</span><span class="tok-punctuation">:</span> <span class="tok-string">"amanuel@example.com"</span></span>
+<span class="line"><span class="tok-punctuation">}</span></span>
+</code></pre>
+        </section>
+
+        <section class="editor-section resume-section" data-section="resume" aria-labelledby="tab-resume">
+          <div class="resume-viewer">
+            <iframe class="resume-frame" src="Resume.pdf" title="Resume PDF"></iframe>
+          </div>
+        </section>
+
+        <section class="editor-section" data-section="projects" aria-labelledby="tab-projects">
+          <div id="projectsNotebook" class="notebook" role="list"></div>
+        </section>
+
+        <section class="editor-section" data-section="contact" aria-labelledby="tab-contact">
+          <pre class="code-block"><code>
+<span class="line"><span class="tok-comment"># Contact.py</span></span>
+<span class="line"></span>
+<span class="line"><span class="tok-variable">contact</span> <span class="tok-operator">=</span> <span class="tok-punctuation">{</span></span>
+<span class="line">    <span class="tok-property">"email"</span><span class="tok-punctuation">:</span> <span class="tok-punctuation">[</span><span class="tok-string"><a class="code-link" href="mailto:amanuelmekonenf1@gmail.com">"amanuelmekonenf1@gmail.com"</a></span><span class="tok-punctuation">,</span> <span class="tok-string"><a class="code-link" href="mailto:amf48389@uga.edu">"amf48389@uga.edu"</a></span><span class="tok-punctuation">]</span><span class="tok-punctuation">,</span></span>
+<span class="line">    <span class="tok-property">"github"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="https://github.com/AmanuelMekonen">"https://github.com/AmanuelMekonen"</a></span><span class="tok-punctuation">,</span></span>
+<span class="line">    <span class="tok-property">"linkedin"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="https://www.linkedin.com/in/amanuel-fesseha/">"https://www.linkedin.com/in/amanuel-fesseha/"</a></span><span class="tok-punctuation">,</span></span>
+<span class="line">    <span class="tok-property">"phone"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="tel:+17028572750">"+1-702-857-2750"</a></span></span>
+<span class="line"><span class="tok-punctuation">}</span></span>
+</code></pre>
+        </section>
+      </div>
+
+    </div>
+
+    <footer class="status-bar" role="contentinfo">
+      <div class="status-left">
+        <span class="status-item">
+          <span class="codicon codicon-git-branch" aria-hidden="true"></span>
+          <span>main</span>
+        </span>
+        <span class="status-item">
+          <span class="codicon codicon-sync" aria-hidden="true"></span>
+          <span>0</span>
+          <span class="codicon codicon-arrow-up" aria-hidden="true"></span>
+          <span>0</span>
+          <span class="codicon codicon-arrow-down" aria-hidden="true"></span>
+        </span>
+        <span class="status-item">
+          <span class="codicon codicon-warning" aria-hidden="true"></span>
+          <span>0</span>
+        </span>
+        <span class="status-item">
+          <span class="codicon codicon-error" aria-hidden="true"></span>
+          <span>0</span>
+        </span>
+      </div>
+      <div class="status-right">
+        <span class="status-item">Ln 17, Col 3</span>
+        <span class="status-item">Spaces: 2</span>
+        <span class="status-item">UTF-8</span>
+        <span class="status-item">LF</span>
+        <span class="status-item">
+          <span class="codicon codicon-bracket" aria-hidden="true"></span>
+          <span>TypeScript</span>
+        </span>
+        <span class="status-item">
+          <span class="codicon codicon-bell" aria-hidden="true"></span>
+        </span>
+      </div>
+    </footer>
+  </div>
 
   <script src="script.js"></script>
 </body>
