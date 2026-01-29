@@ -1,6 +1,6 @@
 # Amanuel Fesseha Portfolio
 
-A static portfolio that deploys on GitHub Pages. No build tools, just HTML, CSS, and JS (Majority VibeCoded).
+A static portfolio that deploys on GitHub Pages. No build tools, just HTML, CSS, and JS (Mostly VibeCoded).
 
 ## Quick start
 
