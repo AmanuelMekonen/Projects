@@ -314,6 +314,7 @@ button {
   color: currentColor;
   opacity: 0.6;
   margin-left: auto;
+  cursor: pointer;
 }
 
 .tab.is-active .tab-close {
@@ -376,10 +377,43 @@ button {
 .editor-section {
   display: none;
   min-height: 100%;
+  height: 100%;
 }
 
 .editor-section.is-active {
   display: block;
+}
+
+.readme-profile {
+  min-height: 100%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 24px 16px;
+  transform: translateY(-40px);
+}
+
+.readme-avatar {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.readme-text {
+  max-width: 720px;
+  margin: 0;
+  font-family: var(--font-code);
+  line-height: 1.7;
+  color: var(--text);
+  font-size: 14px;
 }
 
 .resume-section {
@@ -451,8 +485,8 @@ button {
   background: var(--bg);
   border-radius: 0;
   padding: 2px 0;
-  min-width: 100%;
-  width: max-content;
+  width: 100%;
+  min-width: 0;
 }
 
 .code-block code {
@@ -460,7 +494,7 @@ button {
   font-size: 13px;
   line-height: 1.2;
   counter-reset: line;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .code-link,
@@ -574,7 +608,8 @@ button {
   display: block;
   padding: 0 24px 0 var(--gutter-width);
   position: relative;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   line-height: 1.2;
 }
 
@@ -634,7 +669,7 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 10;
   background: var(--accent);
   color: #ffffff;

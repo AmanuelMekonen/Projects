@@ -82,7 +82,7 @@
           <span class="sidebar-section-chevron codicon codicon-chevron-right" aria-hidden="true"></span>
           <span class="sidebar-section-title">PORTFOLIO</span>
         </button>
-        <div class="sidebar-section-body" id="sidebar-portfolio">
+      <div class="sidebar-section-body" id="sidebar-portfolio">
           <button class="sidebar-file" data-section="about" type="button">
             <span class="file-icon file-icon--md codicon codicon-markdown" aria-hidden="true"></span>
             <span>README.md</span>
@@ -98,6 +98,18 @@
           <button class="sidebar-file" data-section="contact" type="button">
             <span class="file-icon file-icon--py codicon codicon-python" aria-hidden="true"></span>
             <span>Contact.py</span>
+          </button>
+          <button class="sidebar-file" data-section="create-lab" type="button">
+            <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
+            <span>CreateLab.ipynb</span>
+          </button>
+          <button class="sidebar-file" data-section="curo-research" type="button">
+            <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
+            <span>CuroResearch.ipynb</span>
+          </button>
+          <button class="sidebar-file" data-section="personal" type="button">
+            <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
+            <span>PersonalProject.ipynb</span>
           </button>
         </div>
       </div>
@@ -159,18 +171,15 @@
 
       <div class="editor" role="region" aria-live="polite">
         <section class="editor-section is-active" data-section="about" aria-labelledby="tab-about">
-          <pre class="code-block"><code>
-<span class="line"><span class="tok-comment"># README.md</span></span>
-<span class="line"></span>
-<span class="line"><span class="tok-variable">about</span> <span class="tok-operator">=</span> <span class="tok-punctuation">{</span></span>
-<span class="line">    <span class="tok-property">"name"</span><span class="tok-punctuation">:</span> <span class="tok-string">"Amanuel Fesseha"</span><span class="tok-punctuation">,</span></span>
-<span class="line">    <span class="tok-property">"tagline"</span><span class="tok-punctuation">:</span> <span class="tok-string">"Engineering systems for the physical and virtual world."</span><span class="tok-punctuation">,</span></span>
-<span class="line">    <span class="tok-property">"focus"</span><span class="tok-punctuation">:</span> <span class="tok-punctuation">[</span><span class="tok-string">"Robotics"</span><span class="tok-punctuation">,</span> <span class="tok-string">"Embedded Systems"</span><span class="tok-punctuation">,</span> <span class="tok-string">"XR"</span><span class="tok-punctuation">]</span><span class="tok-punctuation">,</span></span>
-<span class="line">    <span class="tok-property">"summary"</span><span class="tok-punctuation">:</span> <span class="tok-string">"From prototypes to deployed systems with reliable hardware and expressive interfaces."</span><span class="tok-punctuation">,</span></span>
-<span class="line">    <span class="tok-property">"location"</span><span class="tok-punctuation">:</span> <span class="tok-string">"Addis Ababa, ET"</span><span class="tok-punctuation">,</span></span>
-<span class="line">    <span class="tok-property">"email"</span><span class="tok-punctuation">:</span> <span class="tok-string">"amanuel@example.com"</span></span>
-<span class="line"><span class="tok-punctuation">}</span></span>
-</code></pre>
+          <div class="readme-profile">
+            <img class="readme-avatar" src="Profile.jpg" alt="Portrait of Amanuel Fesseha">
+            <p class="readme-text">
+              Hello, I'm Amanuel Fesseha, an Electrical and Electronics Engineering student at the University of Georgia. I'm interested in embedded systems, sensor-driven hardware, and robotics, especially where electronics, firmware, and mechanical design come together.
+            </p>
+            <p class="readme-text">
+              This site is a portfolio of the projects I'm currently working on and the systems I've built so far. I use it to document my design process, share results, and highlight what I learned along the way.
+            </p>
+          </div>
         </section>
 
         <section class="editor-section resume-section" data-section="resume" aria-labelledby="tab-resume">
@@ -181,6 +190,18 @@
 
         <section class="editor-section" data-section="projects" aria-labelledby="tab-projects">
           <div id="projectsNotebook" class="notebook" role="list"></div>
+        </section>
+
+        <section class="editor-section" data-section="create-lab" aria-labelledby="tab-create-lab">
+          <div id="createLabNotebook" class="notebook" role="list"></div>
+        </section>
+
+        <section class="editor-section" data-section="curo-research" aria-labelledby="tab-curo-research">
+          <div id="curoResearchNotebook" class="notebook" role="list"></div>
+        </section>
+
+        <section class="editor-section" data-section="personal" aria-labelledby="tab-personal">
+          <div id="personalNotebook" class="notebook" role="list"></div>
         </section>
 
         <section class="editor-section" data-section="contact" aria-labelledby="tab-contact">

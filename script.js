@@ -1,5 +1,31 @@
-const SECTION_IDS = ["about", "resume", "projects", "contact"];
+const SECTION_IDS = [
+  "about",
+  "resume",
+  "projects",
+  "create-lab",
+  "curo-research",
+  "personal",
+  "contact",
+];
 const INDENT = "    ";
+const CREATE_LAB_PROJECTS = [
+  {
+    title: "Create Lab",
+    summary: "Add your Create Lab projects here.",
+  },
+];
+const CURO_RESEARCH_PROJECTS = [
+  {
+    title: "Curo Research",
+    summary: "Add your Curo Research projects here.",
+  },
+];
+const PERSONAL_PROJECTS = [
+  {
+    title: "Personal Project",
+    summary: "Add your personal projects here.",
+  },
+];
 
 function escapeHtml(value) {
   return String(value)
@@ -55,8 +81,16 @@ function updateBreadcrumb(sectionId) {
   const breadcrumb = document.getElementById("breadcrumbText");
   if (!breadcrumb) return;
 
-  const tab = document.querySelector(`.tab[data-section="${sectionId}"]`);
-  const label = tab?.textContent?.trim() || `${sectionId}.py`;
+  const tabLabel = document.querySelector(
+    `.tab[data-section="${sectionId}"] .tab-label`
+  );
+  const sidebarLabel = document
+    .querySelector(`.sidebar-file[data-section="${sectionId}"]`)
+    ?.querySelector("span:last-child");
+  const label =
+    tabLabel?.textContent?.trim() ||
+    sidebarLabel?.textContent?.trim() ||
+    `${sectionId}.py`;
   const download =
     sectionId === "resume"
       ? '<a class="breadcrumb-download" href="Resume.pdf" download aria-label="Download Resume.pdf" title="Download Resume.pdf"><span class="codicon codicon-download" aria-hidden="true"></span></a>'
@@ -67,11 +101,179 @@ function updateBreadcrumb(sectionId) {
   )}</span>${download}`;
 }
 
+function getSectionMeta(sectionId) {
+  const portfolioEntry = document.querySelector(
+    `.sidebar-section[data-section-id="portfolio"] .sidebar-file[data-section="${sectionId}"]`
+  );
+  const anyEntry = document.querySelector(
+    `.sidebar-file[data-section="${sectionId}"]`
+  );
+  const entry = portfolioEntry || anyEntry;
+  const label =
+    entry?.querySelector("span:last-child")?.textContent?.trim() ||
+    `${sectionId}.py`;
+  const icon = entry?.querySelector(".file-icon");
+  const iconMarkup =
+    icon?.outerHTML ||
+    '<span class="file-icon codicon codicon-file" aria-hidden="true"></span>';
+
+  return { label, iconMarkup };
+}
+
+function bindTab(tab) {
+  tab.addEventListener("click", () => {
+    openSection(tab.dataset.section);
+  });
+}
+
+function bindSidebarFile(button) {
+  button.addEventListener("click", () => {
+    openSection(button.dataset.section);
+  });
+}
+
 function bindSectionSwitchers() {
-  document.querySelectorAll(".tab, .sidebar-file").forEach((button) => {
-    button.addEventListener("click", () => {
-      setActiveSection(button.dataset.section);
-    });
+  document.querySelectorAll(".tab").forEach((tab) => bindTab(tab));
+  document.querySelectorAll(".sidebar-file").forEach((button) =>
+    bindSidebarFile(button)
+  );
+}
+
+function ensureTab(sectionId) {
+  const tabStrip = document.querySelector(".tab-strip");
+  if (!tabStrip) return null;
+
+  let tab = tabStrip.querySelector(`.tab[data-section="${sectionId}"]`);
+  if (tab) return tab;
+
+  const meta = getSectionMeta(sectionId);
+  tab = document.createElement("button");
+  tab.className = "tab";
+  tab.dataset.section = sectionId;
+  tab.id = `tab-${sectionId}`;
+  tab.setAttribute("role", "tab");
+  tab.setAttribute("aria-selected", "false");
+  tab.type = "button";
+  tab.innerHTML = `${meta.iconMarkup}<span class="tab-label">${escapeHtml(
+    meta.label
+  )}</span><span class="tab-close codicon codicon-close" aria-hidden="true"></span>`;
+  tabStrip.appendChild(tab);
+
+  bindTab(tab);
+  const close = tab.querySelector(".tab-close");
+  if (close) bindTabClose(close);
+
+  return tab;
+}
+
+function ensureOpenEditorEntry(sectionId) {
+  const openEditorsSection = document.querySelector("#sidebar-open-editors");
+  if (!openEditorsSection) return null;
+
+  let entry = openEditorsSection.querySelector(
+    `.sidebar-file[data-section="${sectionId}"]`
+  );
+  if (entry) return entry;
+
+  const meta = getSectionMeta(sectionId);
+  entry = document.createElement("button");
+  entry.className = "sidebar-file";
+  entry.dataset.section = sectionId;
+  entry.type = "button";
+  entry.innerHTML = `${meta.iconMarkup}<span>${escapeHtml(meta.label)}</span>`;
+  openEditorsSection.appendChild(entry);
+
+  bindSidebarFile(entry);
+  return entry;
+}
+
+function openSection(sectionId) {
+  if (!sectionId) return;
+
+  const target = document.querySelector(
+    `.editor-section[data-section="${sectionId}"]`
+  );
+  if (!target) return;
+
+  ensureTab(sectionId);
+  ensureOpenEditorEntry(sectionId);
+  setActiveSection(sectionId);
+}
+
+function clearActiveState() {
+  document.querySelectorAll(".editor-section").forEach((section) => {
+    section.classList.remove("is-active");
+  });
+
+  document.querySelectorAll(".tab").forEach((tab) => {
+    tab.classList.remove("is-active");
+    tab.setAttribute("aria-selected", "false");
+  });
+
+  document.querySelectorAll(".sidebar-file").forEach((file) => {
+    file.classList.remove("is-active");
+  });
+
+  const breadcrumb = document.getElementById("breadcrumbText");
+  if (breadcrumb) breadcrumb.textContent = "";
+}
+
+function findNextTab(tab) {
+  let next = tab?.nextElementSibling;
+  while (next && !next.classList.contains("tab")) {
+    next = next.nextElementSibling;
+  }
+
+  if (next) return next;
+
+  let prev = tab?.previousElementSibling;
+  while (prev && !prev.classList.contains("tab")) {
+    prev = prev.previousElementSibling;
+  }
+
+  return prev || null;
+}
+
+function removeOpenEditorEntry(sectionId) {
+  const openEditorsSection = document.querySelector(
+    '.sidebar-section[data-section-id="open-editors"]'
+  );
+  const entry = openEditorsSection?.querySelector(
+    `.sidebar-file[data-section="${sectionId}"]`
+  );
+  if (entry) entry.remove();
+}
+
+function closeTab(tab) {
+  if (!tab) return;
+
+  const sectionId = tab.dataset.section;
+  const wasActive = tab.classList.contains("is-active");
+  const nextTab = findNextTab(tab);
+
+  tab.remove();
+  removeOpenEditorEntry(sectionId);
+
+  if (!wasActive) return;
+
+  if (nextTab?.dataset.section) {
+    openSection(nextTab.dataset.section);
+  } else {
+    clearActiveState();
+  }
+}
+
+function bindTabClose(close) {
+  close.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const tab = close.closest(".tab");
+    closeTab(tab);
+  });
+}
+
+function bindTabClosers() {
+  document.querySelectorAll(".tab-close").forEach((close) => {
+    bindTabClose(close);
   });
 }
 
@@ -191,10 +393,10 @@ function buildNotebookOutputCell(title) {
   ].join("\n");
 }
 
-function buildProjectsNotebook(projects) {
+function buildProjectsNotebook(projects, title = "Projects") {
   if (!Array.isArray(projects) || projects.length === 0) {
     return [
-      buildNotebookMarkdownCell("Projects"),
+      buildNotebookMarkdownCell(title),
       buildNotebookCodeCell("No projects found."),
     ].join("\n");
   }
@@ -214,6 +416,13 @@ function buildProjectsNotebook(projects) {
     .join("\n");
 }
 
+function renderNotebook(notebookId, title, projects) {
+  const notebookEl = document.getElementById(notebookId);
+  if (!notebookEl) return;
+
+  notebookEl.innerHTML = buildProjectsNotebook(projects, title);
+}
+
 async function renderProjects() {
   const notebookEl = document.getElementById("projectsNotebook");
   if (!notebookEl) return;
@@ -221,7 +430,7 @@ async function renderProjects() {
   try {
     const res = await fetch("projects.json");
     const projects = await res.json();
-    notebookEl.innerHTML = buildProjectsNotebook(projects);
+    notebookEl.innerHTML = buildProjectsNotebook(projects, "Projects");
   } catch (error) {
     console.error("Failed to load projects.json", error);
     notebookEl.innerHTML = [
@@ -229,6 +438,12 @@ async function renderProjects() {
       buildNotebookCodeCell("Failed to load projects.json."),
     ].join("\n");
   }
+}
+
+function renderStaticNotebooks() {
+  renderNotebook("createLabNotebook", "Create Lab", CREATE_LAB_PROJECTS);
+  renderNotebook("curoResearchNotebook", "Curo Research", CURO_RESEARCH_PROJECTS);
+  renderNotebook("personalNotebook", "Personal Project", PERSONAL_PROJECTS);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -246,9 +461,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   bindSidebarSectionToggles();
   bindSectionSwitchers();
+  bindTabClosers();
 
   const initial =
     document.querySelector(".tab.is-active")?.dataset.section || SECTION_IDS[0];
   setActiveSection(initial);
   renderProjects();
+  renderStaticNotebooks();
 });
