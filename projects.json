@@ -1,69 +1,106 @@
 [
   {
-    "id": "bio-inspired-adaptive-leaping-system",
-    "title": "Bio Inspired Adaptive Leaping System",
-    "summary": "Kangaroo style biped with custom brushless actuators and ROS 2 Gazebo sim.",
+    "id": "biomechanical-adaptive-leaping-system",
+    "title": "Biomechanical Adaptive Leaping System",
+    "projectOverview": "This project develops a bio-inspired jumping robot using high power-to-weight actuation and mechanical energy storage inspired by muscle-tendon systems. The goal is to design, simulate, and build a robot that stores and rapidly releases energy for efficient jumping, while validating the path from simulation to hardware.",
+    "specificContribution": "I designed the system architecture and led the transition from commercial integrated actuators to custom brushless actuator development. I built an initial actuator prototype, converted CAD models to URDF for ROS 2/Gazebo, and planned gear ratio, actuator packaging, and system integration.",
+    "technicalDetails": "This project combines robotics, embedded systems, and electromechanical design. It uses ROS 2 and Gazebo for simulation/control testing, Fusion 360 for CAD, and an iterative workflow linking simulation results to hardware.",
     "tags": [
-      "ROS 2",
+      "ROS2",
       "Gazebo",
-      "Brushless",
-      "URDF"
+      "URDF",
+      "Actuator Design"
+    ],
+    "images": [
+      "images/1a.png",
+      "images/1b.JPEG",
+      "images/1c.JPEG"
     ],
     "link": "#"
   },
   {
-    "id": "wearable-ppg-platform",
-    "title": "Wearable PPG Platform",
-    "summary": "ESP32 S3 sensor stacks for heart rate and SpO2 with FRAM logging.",
+    "id": "pecan-impact-recording-device",
+    "title": "Pecan Impact Recording Device",
+    "projectOverview": "This project builds a compact, battery-powered embedded system that captures motion data and streams it over BLE in a half-pecan sized package. It focuses on reliable sensing, nonvolatile storage, and a LiPo power system that is easy to assemble, program, and iterate. Technical details and skills",
+    "specificContribution": "I designed the overall system and integrated the main parts for compute, power, sensing, memory, and RF. I used an nRF52840 MCU with an nPM1100 PMIC for Li-Po charging and regulation, plus an SPI LSM6DSOX IMU and SPI FRAM. I planned bring-up and debugging with SWD and nRESET, and handled tight PCB layout, antenna placement, and enclosure constraints.",
+    "technicalDetails": "This project combines embedded hardware, power design, and a PCB layout that can be manufactured. It covers Li-Po charging, power rail planning, low-power design, and reliable debug/program access using small connectors or pogo pins. It also includes SPI design for the IMU and FRAM and BLE telemetry on the nRF52. On the PCB side, it includes schematic capture, dense footprints, chip-antenna placement, and an iterative build-test workflow.",
+    "tags": [
+      "nRF52840",
+      "BLE",
+      "PCB",
+      "LiPo"
+    ],
+    "images": [
+      "images/2.png"
+    ],
+    "link": "#"
+  },
+  {
+    "id": "reaction-latency-evaluator",
+    "title": "Reaction Latency Evaluator",
+    "projectOverview": "The Reaction Latency Evaluation project modernizes the existing Reaction Latency System for the Gerontology Laboratory using an ESP32 and industrial LED light strips. The goal is to improve timing accuracy, system reliability, and data collection so the lab can perform more precise reaction time research using a modern hardware and software platform.",
+    "specificContribution": "I programmed the microcontroller to support multiple operating modes and implemented the full data pipeline. I developed firmware to collect reaction timing data and transmit it using MQTT, and I built a desktop GUI to display and analyze results in real time. This work helped transition the system from a legacy setup to a connected, research-ready platform.",
+    "technicalDetails": "This project uses embedded firmware development on the ESP32, real-time timing control, and LED hardware interfacing. It also includes MQTT-based data communication, GUI development for experiment monitoring, and system integration between hardware, networking, and software for research data collection.",
     "tags": [
       "ESP32",
-      "PPG",
-      "I2C",
-      "FRAM"
+      "MQTT",
+      "GUI",
+      "Real-time"
+    ],
+    "images": [
+      "images/3.png"
     ],
     "link": "#"
   },
   {
-    "id": "reaction-time-trainer",
-    "title": "Reaction Time Trainer",
-    "summary": "LED ring training device with microsecond timing and desktop app.",
+    "id": "doom-on-m5stick",
+    "title": "DOOM on M5Stick",
+    "projectOverview": "This project set out to bring DOOM to the M5Stick and build a custom controller library to make it fully playable on embedded hardware. The goal was to push a small microcontroller to run a classic game while creating responsive, real-time controls and proving that complex interactive systems can run on very constrained devices.",
+    "specificContribution": "I designed a single-pin GPIO controller interface and created a custom PCB for it. I fabricated the board inhouse using acid etching, assembled it, and validated the hardware with the M5Stick. I also developed an Arduino library that allows the controller to interface cleanly with the M5Stick and the DOOM control system, making the controller reusable for future embedded input projects.",
+    "technicalDetails": "This project involved embedded firmware development in Arduino/C++ on the M5Stick, custom PCB design, and in-house fabrication. It also included developing libraries for custom hardware, working with GPIO timing, and maintaining responsive real-time control on constrained embedded hardware.",
     "tags": [
-      "ESP32",
-      "Python",
-      "BLE"
+      "M5Stick",
+      "Arduino",
+      "GPIO",
+      "PCB"
+    ],
+    "images": [
+      "images/4a.JPEG",
+      "images/4b.JPEG"
     ],
     "link": "#"
   },
   {
-    "id": "template-autonomy-stack",
-    "title": "Template: Autonomy Stack",
-    "summary": "Placeholder robotics autonomy stack integrating perception, planning, and control.",
+    "id": "batbot-ant-weight-battle-bot",
+    "title": "BatBot–Ant Weight Battle Bot",
+    "projectOverview": "Bat-Bot is a plastic antweight combat robot designed and built for the UGA Robotics Club Battle Bot competition. The goal was to create a fully functional, competition-ready robot using primarily ABS plastic to demonstrate strong structural performance while keeping the design lightweight, manufacturable, and easy to iterate.",
+    "specificContribution": "I designed the full mechanical system in CAD and manufactured the robot using ABS for all structural components except rubber tires and metal hinge hardware. I optimized the chassis and wedge geometry for durability and impact deflection while maintaining low weight. I assembled, tested, and validated the robot for competition use, ensuring the mechanical joints, drive system, and structure could withstand combat conditions.",
+    "technicalDetails": "This project involved CAD design for impact-loaded structures, material selection using ABS for strength and printability, and mechanical system integration including hinged armor and drive components. It also included design for manufacturability using 3D printing, mechanical assembly, and iterative structural testing for real-world robotic competition use.",
     "tags": [
-      "ROS 2",
-      "Navigation",
-      "Perception"
+      "CAD",
+      "ABS",
+      "3D Printing",
+      "Battle Bot"
+    ],
+    "images": [
+      "images/5.png"
     ],
     "link": "#"
   },
   {
-    "id": "template-hardware-platform",
-    "title": "Template: Hardware Platform",
-    "summary": "Placeholder embedded hardware platform with mixed-signal sensing and wireless links.",
+    "id": "modular-phone-mount",
+    "title": "Modular phone mount",
+    "projectOverview": "This project was built to solve a very serious workplace problem: how to watch football hands-free while still being able to cook or prep food. The goal was to design a modular, adjustable phone mount that could securely hold a phone, survive daily use, and look clean enough to not feel like a last-minute desk hack.",
+    "specificContribution": "I designed the full mechanism in CAD, including a custom compliant hinge system that allows smooth motion without relying on complex multi-part hinge assemblies. I focused on modularity so parts could be replaced or adjusted easily, and I calculated torque requirements to ensure the mount could hold the phone at different angles without drooping mid-game. The final design balances stability, adjustability, and manufacturability while keeping the mechanism simple and reliable.",
+    "technicalDetails": "This project involved compliant mechanism design, torque and load estimation for small mechanical systems, and CAD-driven design for modular assemblies. It also included design for 3D printing, iterative prototyping, and optimizing geometry for strength, flexibility, and long-term use.",
     "tags": [
-      "MCU",
-      "Sensors",
-      "Wireless"
+      "CAD",
+      "Compliant Mechanism",
+      "3D Printing",
+      "Modular Design"
     ],
-    "link": "#"
-  },
-  {
-    "id": "template-experimental-interface",
-    "title": "Template: Experimental Interface",
-    "summary": "Placeholder interactive interface concept combining realtime graphics and haptics.",
-    "tags": [
-      "UI",
-      "Real-time",
-      "Prototype"
+    "images": [
+      "images/6.png"
     ],
     "link": "#"
   }

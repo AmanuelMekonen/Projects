@@ -8,24 +8,25 @@ const SECTION_IDS = [
   "contact",
 ];
 const INDENT = "    ";
-const CREATE_LAB_PROJECTS = [
+const CREATE_LAB_FALLBACK_PROJECTS = [
   {
     title: "Create Lab",
     summary: "Add your Create Lab projects here.",
   },
 ];
-const CURO_RESEARCH_PROJECTS = [
+const CURO_RESEARCH_FALLBACK_PROJECTS = [
   {
     title: "Curo Research",
     summary: "Add your Curo Research projects here.",
   },
 ];
-const PERSONAL_PROJECTS = [
+const PERSONAL_FALLBACK_PROJECTS = [
   {
     title: "Personal Project",
     summary: "Add your personal projects here.",
   },
 ];
+let projectsDataPromise;
 
 function escapeHtml(value) {
   return String(value)
@@ -363,30 +364,105 @@ function buildNotebookMarkdownCell(title) {
   ].join("\n");
 }
 
-function buildNotebookCodeCell(summary) {
-  const codeLine = `${t.variable("description")} ${t.operator("=")} ${t.string(
-    summary || ""
-  )}`;
-  return [
-    '<div class="nb-cell nb-code" role="listitem">',
-    '  <div class="nb-cell-gutter"><span class="nb-prompt">In&nbsp;[&nbsp;]:</span></div>',
-    '  <div class="nb-cell-body">',
-    `    <pre class="nb-code"><code>${codeLine}</code></pre>`,
-    "  </div>",
-    "</div>",
-  ].join("\n");
+function buildNotebookCodeCell(projectOrSummary) {
+  const codeAssignments = [];
+  const isProjectObject =
+    projectOrSummary && typeof projectOrSummary === "object";
+
+  if (isProjectObject) {
+    const overview = projectOrSummary.projectOverview || projectOrSummary.summary;
+    const contribution = projectOrSummary.specificContribution;
+    const technicalDetails = projectOrSummary.technicalDetails;
+
+    if (overview) {
+      codeAssignments.push(["ProjectOverview", overview]);
+    }
+    if (contribution) {
+      codeAssignments.push(["SpecificContribution", contribution]);
+    }
+    if (technicalDetails) {
+      codeAssignments.push(["TechnicalDetails", technicalDetails]);
+    }
+  }
+
+  if (codeAssignments.length === 0) {
+    codeAssignments.push(["description", String(projectOrSummary || "")]);
+  }
+
+  return codeAssignments
+    .map(([name, value]) => {
+      const codeLine = `${t.variable(name)} ${t.operator("=")} ${t.string(value)}`;
+      return [
+        '<div class="nb-cell nb-code" role="listitem">',
+        '  <div class="nb-cell-gutter"><span class="nb-prompt">In&nbsp;[&nbsp;]:</span></div>',
+        '  <div class="nb-cell-body">',
+        `    <pre class="nb-code"><code>${codeLine}</code></pre>`,
+        "  </div>",
+        "</div>",
+      ].join("\n");
+    })
+    .join("\n");
 }
 
-function buildNotebookOutputCell(title) {
-  const placeholder = buildPlaceholderImage(title);
+function buildNotebookOutputCell(project) {
+  const title = project?.title || "project";
+  const images = Array.isArray(project?.images)
+    ? project.images.filter((path) => typeof path === "string" && path.trim())
+    : [];
+  const fallbackImage = buildPlaceholderImage(title);
+  const outputImage = images[0] || fallbackImage;
+
+  if (images.length <= 1) {
+    return [
+      '<div class="nb-output" role="listitem">',
+      '  <div class="nb-cell-gutter"><span class="nb-prompt">Out[&nbsp;]:</span></div>',
+      '  <div class="nb-cell-body">',
+      '    <div class="nb-output-area">',
+      `      <img class="nb-output-image" src="${escapeHtml(
+        outputImage
+      )}" alt="Preview of ${escapeHtml(title)}" loading="lazy">`,
+      "    </div>",
+      "  </div>",
+      "</div>",
+    ].join("\n");
+  }
+
+  const slidesMarkup = images
+    .map((imagePath, index) => {
+      return `          <img class="nb-output-image nb-slider-slide" src="${escapeHtml(
+        imagePath
+      )}" alt="Preview ${index + 1} of ${escapeHtml(
+        title
+      )}" loading="lazy">`;
+    })
+    .join("\n");
+
+  const dotsMarkup = images
+    .map(
+      (_, index) =>
+        `          <button class="nb-slider-dot${
+          index === 0 ? " is-active" : ""
+        }" type="button" data-slide-to="${index}" aria-label="Show image ${
+          index + 1
+        }"></button>`
+    )
+    .join("\n");
+
   return [
     '<div class="nb-output" role="listitem">',
     '  <div class="nb-cell-gutter"><span class="nb-prompt">Out[&nbsp;]:</span></div>',
     '  <div class="nb-cell-body">',
     '    <div class="nb-output-area">',
-    `      <img class="nb-output-image" src="${placeholder}" alt="Preview of ${escapeHtml(
-      title || "project"
-    )}">`,
+    '      <div class="nb-slider" data-slide-index="0">',
+    '        <div class="nb-slider-track">',
+    slidesMarkup,
+    "        </div>",
+    '        <button class="nb-slider-button nb-slider-prev" type="button" aria-label="Previous image">&#10094;</button>',
+    '        <button class="nb-slider-button nb-slider-next" type="button" aria-label="Next image">&#10095;</button>',
+    '        <div class="nb-slider-dots">',
+    dotsMarkup,
+    "        </div>",
+    "      </div>",
     "    </div>",
     "  </div>",
     "</div>",
@@ -404,16 +480,64 @@ function buildProjectsNotebook(projects, title = "Projects") {
   return projects
     .map((project) => {
       const title = project.title || "Untitled Project";
-      const summary = project.summary || "";
       return [
         '<div class="notebook-project">',
         buildNotebookMarkdownCell(title),
-        buildNotebookCodeCell(summary),
-        buildNotebookOutputCell(title),
+        buildNotebookCodeCell(project),
+        buildNotebookOutputCell(project),
         "</div>",
       ].join("\n");
     })
     .join("\n");
+}
+
+function setSliderIndex(slider, nextIndex) {
+  const track = slider.querySelector(".nb-slider-track");
+  if (!track) return;
+
+  const slides = Array.from(track.querySelectorAll(".nb-slider-slide"));
+  if (slides.length === 0) return;
+
+  const boundedIndex = ((nextIndex % slides.length) + slides.length) % slides.length;
+  slider.dataset.slideIndex = String(boundedIndex);
+  track.style.transform = `translateX(-${boundedIndex * 100}%)`;
+
+  const dots = slider.querySelectorAll(".nb-slider-dot");
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle("is-active", idx === boundedIndex);
+    dot.setAttribute("aria-current", idx === boundedIndex ? "true" : "false");
+  });
+}
+
+function initNotebookSliders(scope = document) {
+  scope.querySelectorAll(".nb-slider").forEach((slider) => {
+    const track = slider.querySelector(".nb-slider-track");
+    if (!track) return;
+
+    const slides = track.querySelectorAll(".nb-slider-slide");
+    if (slides.length <= 1) return;
+
+    setSliderIndex(slider, Number(slider.dataset.slideIndex || 0));
+
+    const prevButton = slider.querySelector(".nb-slider-prev");
+    const nextButton = slider.querySelector(".nb-slider-next");
+    const dots = slider.querySelectorAll(".nb-slider-dot");
+
+    prevButton?.addEventListener("click", () => {
+      setSliderIndex(slider, Number(slider.dataset.slideIndex || 0) - 1);
+    });
+
+    nextButton?.addEventListener("click", () => {
+      setSliderIndex(slider, Number(slider.dataset.slideIndex || 0) + 1);
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const targetIndex = Number(dot.dataset.slideTo || 0);
+        setSliderIndex(slider, targetIndex);
+      });
+    });
+  });
 }
 
 function renderNotebook(notebookId, title, projects) {
@@ -421,6 +545,19 @@ function renderNotebook(notebookId, title, projects) {
   if (!notebookEl) return;
 
   notebookEl.innerHTML = buildProjectsNotebook(projects, title);
+  initNotebookSliders(notebookEl);
+}
+
+async function loadProjectsData() {
+  if (!projectsDataPromise) {
+    projectsDataPromise = fetch("projects.json").then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to load projects.json (${res.status})`);
+      }
+      return res.json();
+    });
+  }
+  return projectsDataPromise;
 }
 
 async function renderProjects() {
@@ -428,22 +565,36 @@ async function renderProjects() {
   if (!notebookEl) return;
 
   try {
-    const res = await fetch("projects.json");
-    const projects = await res.json();
+    const projects = await loadProjectsData();
     notebookEl.innerHTML = buildProjectsNotebook(projects, "Projects");
+    initNotebookSliders(notebookEl);
   } catch (error) {
     console.error("Failed to load projects.json", error);
     notebookEl.innerHTML = [
       buildNotebookMarkdownCell("Projects"),
       buildNotebookCodeCell("Failed to load projects.json."),
     ].join("\n");
+    initNotebookSliders(notebookEl);
   }
 }
 
-function renderStaticNotebooks() {
-  renderNotebook("createLabNotebook", "Create Lab", CREATE_LAB_PROJECTS);
-  renderNotebook("curoResearchNotebook", "Curo Research", CURO_RESEARCH_PROJECTS);
-  renderNotebook("personalNotebook", "Personal Project", PERSONAL_PROJECTS);
+async function renderStaticNotebooks() {
+  try {
+    const projects = await loadProjectsData();
+    const allProjects = Array.isArray(projects) ? projects : [];
+    const curoResearchProjects = allProjects.slice(0, 1);
+    const createLabProjects = allProjects.slice(1, 3);
+    const personalProjects = allProjects.slice(3);
+
+    renderNotebook("curoResearchNotebook", "Curo Research", curoResearchProjects);
+    renderNotebook("createLabNotebook", "Create Lab", createLabProjects);
+    renderNotebook("personalNotebook", "Personal Projects", personalProjects);
+  } catch (error) {
+    console.error("Failed to load projects.json for notebook sections", error);
+    renderNotebook("curoResearchNotebook", "Curo Research", CURO_RESEARCH_FALLBACK_PROJECTS);
+    renderNotebook("createLabNotebook", "Create Lab", CREATE_LAB_FALLBACK_PROJECTS);
+    renderNotebook("personalNotebook", "Personal Projects", PERSONAL_FALLBACK_PROJECTS);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
