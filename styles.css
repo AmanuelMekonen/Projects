@@ -492,6 +492,10 @@ button {
   min-width: 0;
 }
 
+.editor-section[data-section="contact"] .code-block {
+  background: var(--bg-editor);
+}
+
 .code-block code {
   display: block;
   font-size: 13px;
