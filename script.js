@@ -87,6 +87,10 @@ function setActiveSection(sectionId) {
 
   const editor = document.querySelector(".editor");
   if (editor) editor.scrollTop = 0;
+  const language = document.getElementById("statusLanguage");
+  if (language) language.textContent = sectionId === "contact" ? "Python" : sectionId === "about" ? "Markdown" : sectionId === "resume" ? "PDF" : "Jupyter";
+  const indent = document.getElementById("statusIndent");
+  if (indent) indent.textContent = sectionId === "contact" ? "Spaces: 4" : "Spaces: 2";
 }
 
 function updateBreadcrumb(sectionId) {
@@ -364,7 +368,7 @@ function buildPlaceholderImage(title) {
 
 function buildNotebookMarkdownCell(title) {
   return [
-    '<div class="nb-cell nb-markdown" role="listitem">',
+    '<div class="nb-cell nb-markdown">',
     '  <div class="nb-cell-gutter"><span class="nb-prompt" aria-hidden="true"></span></div>',
     '  <div class="nb-cell-body">',
     '    <div class="nb-markdown-content">',
@@ -372,6 +376,18 @@ function buildNotebookMarkdownCell(title) {
     "    </div>",
     "  </div>",
     "</div>",
+  ].join("\n");
+}
+
+function buildNotebookPythonSource(name, value) {
+  const text = String(value);
+  const assignment = `${t.variable(name)} ${t.operator("=")}`;
+  const string = `<span class="tok-string">${escapeHtml(JSON.stringify(text))}</span>`;
+  if (text.length <= 72) return line(`${assignment} ${string}`);
+  return [
+    line(`${assignment} <span class="tok-bracket">(</span>`),
+    `<span class="line has-indent nb-string-line">${INDENT}${string}</span>`,
+    line('<span class="tok-bracket">)</span>'),
   ].join("\n");
 }
 
@@ -386,13 +402,13 @@ function buildNotebookCodeCell(projectOrSummary, showPrompt = true) {
     const technicalDetails = projectOrSummary.technicalDetails;
 
     if (overview) {
-      codeAssignments.push(["ProjectOverview", overview]);
+      codeAssignments.push(["project_overview", overview]);
     }
     if (contribution) {
-      codeAssignments.push(["SpecificContribution", contribution]);
+      codeAssignments.push(["specific_contribution", contribution]);
     }
     if (technicalDetails) {
-      codeAssignments.push(["TechnicalDetails", technicalDetails]);
+      codeAssignments.push(["technical_details", technicalDetails]);
     }
   }
 
@@ -400,23 +416,28 @@ function buildNotebookCodeCell(projectOrSummary, showPrompt = true) {
     codeAssignments.push(["description", String(projectOrSummary || "")]);
   }
 
-  return codeAssignments
-    .map(([name, value]) => {
-      const codeLine = `${t.variable(name)} ${t.operator("=")} ${t.string(value)}`;
-      return [
-        '<div class="nb-cell nb-code" role="listitem">',
-        `  <div class="nb-cell-gutter"><span class="nb-prompt">${showPrompt ? "Out[&nbsp;]:" : ""}</span></div>`,
-        '  <div class="nb-cell-body">',
-        `    <pre class="nb-code"><code>${codeLine}</code></pre>`,
-        "  </div>",
-        "</div>",
-      ].join("\n");
-    })
-    .join("\n");
+  const source = codeAssignments
+    .map(([name, value]) => buildNotebookPythonSource(name, value))
+    .join(`\n${line("")}\n`);
+  return [
+    '<div class="nb-cell nb-code-cell">',
+    `  <div class="nb-cell-gutter">${showPrompt ? '<span class="codicon codicon-ellipsis" aria-label="Output"></span>' : ""}</div>`,
+    '  <div class="nb-cell-body">',
+    `    <pre class="code-block python-source nb-code" tabindex="0" aria-label="Python project details"><code>${source}</code></pre>`,
+    "  </div>",
+    "</div>",
+  ].join("\n");
 }
 
-function buildNotebookOutputCell(project) {
+function buildNotebookOutputCell(project, outputId) {
   const title = project?.title || "project";
+  const number = Number.isInteger(project?.projectNumber) ? project.projectNumber : " ";
+  const gutter = [
+    '  <div class="nb-cell-gutter nb-input-gutter">',
+    `    <button class="nb-cell-run" type="button" aria-label="Show details for ${escapeHtml(title)}" title="Show project details" aria-expanded="false" aria-controls="${escapeHtml(outputId || "")}"><span class="codicon codicon-play" aria-hidden="true"></span></button>`,
+    `    <span class="nb-prompt nb-execution-count" aria-label="Project ${number}">[${number}]</span>`,
+    '  </div>',
+  ].join("\n");
   const images = Array.isArray(project?.images)
     ? project.images.filter((path) => typeof path === "string" && path.trim())
     : [];
@@ -425,13 +446,13 @@ function buildNotebookOutputCell(project) {
 
   if (images.length <= 1) {
     return [
-      '<div class="nb-output" role="listitem">',
-      '  <div class="nb-cell-gutter"><span class="nb-prompt">In&nbsp;[&nbsp;]:</span></div>',
+      '<div class="nb-output">',
+      gutter,
       '  <div class="nb-cell-body">',
       '    <div class="nb-output-area">',
       `      <img class="nb-output-image" src="${escapeHtml(
         outputImage
-      )}" alt="Preview of ${escapeHtml(title)}" loading="lazy">`,
+      )}" alt="Preview of ${escapeHtml(title)}" loading="lazy" role="button" tabindex="0" aria-controls="${escapeHtml(outputId || "")}" aria-expanded="false" aria-label="Preview of ${escapeHtml(title)}. Show project details" title="Show project details">`,
       "    </div>",
       "  </div>",
       "</div>",
@@ -444,7 +465,7 @@ function buildNotebookOutputCell(project) {
         imagePath
       )}" alt="Preview ${index + 1} of ${escapeHtml(
         title
-      )}" loading="lazy">`;
+      )}" loading="lazy" role="button" tabindex="${index === 0 ? 0 : -1}" aria-hidden="${index !== 0}" aria-controls="${escapeHtml(outputId || "")}" aria-expanded="false" aria-label="Preview ${index + 1} of ${escapeHtml(title)}. Show project details" title="Show project details">`;
     })
     .join("\n");
 
@@ -460,8 +481,8 @@ function buildNotebookOutputCell(project) {
     .join("\n");
 
   return [
-    '<div class="nb-output" role="listitem">',
-    '  <div class="nb-cell-gutter"><span class="nb-prompt">In&nbsp;[&nbsp;]:</span></div>',
+    '<div class="nb-output">',
+    gutter,
     '  <div class="nb-cell-body">',
     '    <div class="nb-output-area">',
     '      <div class="nb-slider" data-slide-index="0">',
@@ -480,12 +501,11 @@ function buildNotebookOutputCell(project) {
   ].join("\n");
 }
 
-function buildCollapsibleProjectOutput(project) {
+function buildCollapsibleProjectOutput(project, outputId) {
   return [
-    '<details class="nb-project-output">',
-    `  <summary class="nb-output-toggle" aria-label="Project details for ${escapeHtml(project.title || "Untitled Project")}">`,
-    '    <span class="nb-cell-gutter"><span class="nb-prompt">Out[&nbsp;]:</span></span>',
-    '    <span class="nb-output-toggle-label"><span class="codicon codicon-chevron-right" aria-hidden="true"></span>Project details</span>',
+    `<details class="nb-project-output" id="${escapeHtml(outputId)}">`,
+    `  <summary class="nb-output-toggle" aria-label="Toggle project details for ${escapeHtml(project.title || "Untitled Project")}" title="Show or hide project details">`,
+    '    <span class="nb-cell-gutter nb-output-menu"><span class="codicon codicon-ellipsis" aria-hidden="true"></span></span>',
     '  </summary>',
     buildNotebookCodeCell(project, false),
     '</details>',
@@ -500,14 +520,16 @@ function buildProjectsNotebook(projects, title = "Projects") {
     ].join("\n");
   }
 
+  const titleSlug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   return projects
-    .map((project) => {
+    .map((project, index) => {
       const title = project.title || "Untitled Project";
+      const outputId = `nb-details-${titleSlug}-${index}`;
       return [
-        '<div class="notebook-project">',
+        `<div class="notebook-project" role="listitem" tabindex="0" aria-label="${escapeHtml(title)}">`,
         buildNotebookMarkdownCell(title),
-        buildNotebookOutputCell(project),
-        buildCollapsibleProjectOutput(project),
+        buildNotebookOutputCell(project, outputId),
+        buildCollapsibleProjectOutput(project, outputId),
         "</div>",
       ].join("\n");
     })
@@ -532,6 +554,10 @@ function setSliderIndex(slider, nextIndex) {
   const boundedIndex = ((nextIndex % slides.length) + slides.length) % slides.length;
   slider.dataset.slideIndex = String(boundedIndex);
   track.style.transform = `translateX(-${boundedIndex * 100}%)`;
+  slides.forEach((slide, index) => {
+    slide.tabIndex = index === boundedIndex ? 0 : -1;
+    slide.setAttribute("aria-hidden", String(index !== boundedIndex));
+  });
   updateSliderHeight(slider);
 
   const dots = slider.querySelectorAll(".nb-slider-dot");
@@ -582,21 +608,70 @@ function initNotebookSliders(scope = document) {
   });
 }
 
+function initNotebookSelection(notebook) {
+  const select = (project) => {
+    if (!project || !notebook.contains(project)) return;
+    notebook.querySelectorAll(".notebook-project").forEach((cell) => {
+      cell.classList.toggle("is-selected", cell === project);
+    });
+  };
+  select(notebook.querySelector(".notebook-project"));
+  if (notebook.dataset.selectionBound) return;
+  notebook.dataset.selectionBound = "true";
+  const syncOutput = (output) => {
+    const project = output.closest(".notebook-project");
+    const play = project?.querySelector(".nb-cell-run");
+    if (!play) return;
+    play.setAttribute("aria-expanded", String(output.open));
+    const title = project.getAttribute("aria-label");
+    play.setAttribute("aria-label", `${output.open ? "Hide" : "Show"} details for ${title}`);
+    play.title = output.open ? "Hide project details" : "Show project details";
+    project.querySelectorAll(".nb-output-image").forEach((image) => {
+      image.setAttribute("aria-expanded", String(output.open));
+      image.title = play.title;
+      image.setAttribute("aria-label", `${image.alt}. ${play.title}`);
+    });
+  };
+  const toggleOutput = (target) => {
+    const output = target.closest(".notebook-project")?.querySelector(".nb-project-output");
+    if (!output) return;
+    output.open = !output.open;
+    syncOutput(output);
+  };
+  const selectFromEvent = (event) => select(event.target.closest(".notebook-project"));
+  notebook.addEventListener("click", (event) => {
+    selectFromEvent(event);
+    const trigger = event.target.closest(".nb-cell-run, .nb-output-image");
+    if (trigger) toggleOutput(trigger);
+  });
+  notebook.addEventListener("keydown", (event) => {
+    if (!event.target.matches(".nb-output-image") || !["Enter", " "].includes(event.key)) return;
+    event.preventDefault();
+    toggleOutput(event.target);
+  });
+  notebook.addEventListener("focusin", selectFromEvent);
+  notebook.addEventListener("toggle", (event) => {
+    if (event.target.matches(".nb-project-output")) syncOutput(event.target);
+  }, true);
+}
+
 function renderNotebook(notebookId, title, projects) {
   const notebookEl = document.getElementById(notebookId);
   if (!notebookEl) return;
 
   notebookEl.innerHTML = buildProjectsNotebook(projects, title);
+  initNotebookSelection(notebookEl);
   initNotebookSliders(notebookEl);
 }
 
 async function loadProjectsData() {
   if (!projectsDataPromise) {
-    projectsDataPromise = fetch("projects.json").then(async (res) => {
+    projectsDataPromise = fetch("projects.json", { cache: "no-cache" }).then(async (res) => {
       if (!res.ok) {
         throw new Error(`Failed to load projects.json (${res.status})`);
       }
-      return res.json();
+      const projects = await res.json();
+      return projects.map((project, index) => ({ ...project, projectNumber: index + 1 }));
     });
   }
   return projectsDataPromise;
@@ -609,6 +684,7 @@ async function renderProjects() {
   try {
     const projects = await loadProjectsData();
     notebookEl.innerHTML = buildProjectsNotebook(projects, "Projects");
+    initNotebookSelection(notebookEl);
     initNotebookSliders(notebookEl);
   } catch (error) {
     console.error("Failed to load projects.json", error);

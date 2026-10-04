@@ -12,10 +12,10 @@
       "Actuator Design"
     ],
     "images": [
-      "images/1a.png",
-      "images/1b.png",
-      "images/1c.JPEG",
-      "images/1d.JPEG"
+      "images/1a.png?v=aa809e5a9096",
+      "images/1b.png?v=792305ab39b9",
+      "images/1c.JPEG?v=34fd497ced6e",
+      "images/1d.JPEG?v=b8c66f55f56f"
     ],
     "link": "#"
   },
@@ -32,8 +32,8 @@
       "LiPo"
     ],
     "images": [
-      "images/2a.png",
-      "images/2b.png"
+      "images/2a.png?v=dea0e2b57da8",
+      "images/2b.png?v=9aa6ae75d0d0"
     ],
     "link": "#"
   },
@@ -50,9 +50,9 @@
       "Real-time"
     ],
     "images": [
-      "images/3a.png",
-      "images/3b.jfif",
-      "images/3c.png"
+      "images/3a.png?v=d8125e934eaa",
+      "images/3b.jfif?v=c93ac7cedd0a",
+      "images/3c.png?v=82a8d45bff89"
     ],
     "link": "#"
   },
@@ -76,9 +76,9 @@
     "link": "#",
     "title": "Sensor-Integrated Gimbal Headlight Tracker",
     "images": [
-      "images/5a.JPEG",
-      "images/5b.JPEG",
-      "images/5c.JPEG"
+      "images/5a.JPEG?v=3e328f526f41",
+      "images/5b.JPEG?v=ec2147eecfcd",
+      "images/5c.JPEG?v=da936a796fd2"
     ]
   },
   {
@@ -94,8 +94,8 @@
       "PCB"
     ],
     "images": [
-      "images/6a.JPEG",
-      "images/6b.JPEG"
+      "images/6a.JPEG?v=f79b8a0d8311",
+      "images/6b.JPEG?v=b2727e4e5a47"
     ],
     "link": "#"
   },
@@ -112,7 +112,7 @@
       "Battle Bot"
     ],
     "images": [
-      "images/8.png"
+      "images/8.png?v=caffcd15dc35"
     ],
     "link": "#"
   },
@@ -129,7 +129,7 @@
       "Modular Design"
     ],
     "images": [
-      "images/7.png"
+      "images/7.png?v=c15aa050eb27"
     ],
     "link": "#"
   }

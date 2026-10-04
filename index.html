@@ -24,7 +24,7 @@
         <button class="activity-icon" type="button" aria-label="Source Control" title="Source Control">
           <span class="activity-icon-svg codicon codicon-source-control" aria-hidden="true"></span>
         </button>
-        <button class="activity-icon" type="button" aria-label="Run and Debug" title="Run and Debug">n b 
+        <button class="activity-icon" type="button" aria-label="Run and Debug" title="Run and Debug">
           <span class="activity-icon-svg codicon codicon-debug-alt" aria-hidden="true"></span>
         </button>
         <button class="activity-icon" type="button" aria-label="Extensions" title="Extensions">
@@ -213,15 +213,18 @@
         </section>
 
         <section class="editor-section" data-section="contact" aria-labelledby="tab-contact">
-          <pre class="code-block"><code>
+          <pre class="code-block python-source" aria-label="Contact details as Python source code"><code>
 <span class="line"><span class="tok-comment"># Contact.py</span></span>
 <span class="line"></span>
-<span class="line"><span class="tok-variable">contact</span> <span class="tok-operator">=</span> <span class="tok-punctuation">{</span></span>
-<span class="line">    <span class="tok-property">"email"</span><span class="tok-punctuation">:</span> <span class="tok-punctuation">[</span><span class="tok-string"><a class="code-link" href="mailto:amanuelmekonenf1@gmail.com">"amanuelmekonenf1@gmail.com"</a></span><span class="tok-punctuation">,</span> <span class="tok-string"><a class="code-link" href="mailto:amf48389@uga.edu">"amf48389@uga.edu"</a></span><span class="tok-punctuation">]</span><span class="tok-punctuation">,</span></span>
-<span class="line">    <span class="tok-property">"github"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="https://github.com/AmanuelMekonen">"https://github.com/AmanuelMekonen"</a></span><span class="tok-punctuation">,</span></span>
-<span class="line">    <span class="tok-property">"linkedin"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="https://www.linkedin.com/in/amanuel-fesseha/">"https://www.linkedin.com/in/amanuel-fesseha/"</a></span><span class="tok-punctuation">,</span></span>
-<span class="line">    <span class="tok-property">"phone"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="tel:+17028572750">"+1-702-857-2750"</a></span></span>
-<span class="line"><span class="tok-punctuation">}</span></span>
+<span class="line"><span class="tok-variable">contact</span> <span class="tok-operator">=</span> <span class="tok-bracket">{</span></span>
+<span class="line has-indent">    <span class="tok-string">"email"</span><span class="tok-punctuation">:</span> <span class="tok-bracket-nested">[</span></span>
+<span class="line has-indent has-nested-indent">        <span class="tok-string"><a class="code-link" href="mailto:amanuelmekonenf1@gmail.com">"amanuelmekonenf1@gmail.com"</a></span><span class="tok-punctuation">,</span></span>
+<span class="line has-indent has-nested-indent">        <span class="tok-string"><a class="code-link" href="mailto:amf48389@uga.edu">"amf48389@uga.edu"</a></span><span class="tok-punctuation">,</span></span>
+<span class="line has-indent">    <span class="tok-bracket-nested">]</span><span class="tok-punctuation">,</span></span>
+<span class="line has-indent">    <span class="tok-string">"github"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="https://github.com/AmanuelMekonen">"https://github.com/AmanuelMekonen"</a></span><span class="tok-punctuation">,</span></span>
+<span class="line has-indent">    <span class="tok-string">"linkedin"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="https://www.linkedin.com/in/amanuel-fesseha/">"https://www.linkedin.com/in/amanuel-fesseha/"</a></span><span class="tok-punctuation">,</span></span>
+<span class="line has-indent">    <span class="tok-string">"phone"</span><span class="tok-punctuation">:</span> <span class="tok-string"><a class="code-link" href="tel:+17028572750">"+1-702-857-2750"</a></span><span class="tok-punctuation">,</span></span>
+<span class="line"><span class="tok-bracket">}</span></span>
 </code></pre>
         </section>
       </div>
@@ -252,12 +255,12 @@
       </div>
       <div class="status-right">
         <span class="status-item">Ln 17, Col 3</span>
-        <span class="status-item">Spaces: 2</span>
+        <span class="status-item" id="statusIndent">Spaces: 2</span>
         <span class="status-item">UTF-8</span>
         <span class="status-item">LF</span>
         <span class="status-item">
           <span class="codicon codicon-bracket" aria-hidden="true"></span>
-          <span>TypeScript</span>
+          <span id="statusLanguage">Markdown</span>
         </span>
         <span class="status-item">
           <span class="codicon codicon-bell" aria-hidden="true"></span>
