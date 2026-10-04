@@ -12,10 +12,10 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app">
+  <div class="app sidebar-collapsed">
     <aside class="activity-bar" aria-label="Primary">
       <div class="activity-group">
-        <button class="activity-icon is-active" type="button" aria-label="Explorer" title="Explorer" id="activityExplorer">
+        <button class="activity-icon" type="button" aria-label="Explorer" title="Explorer" id="activityExplorer" aria-expanded="false" aria-controls="explorerSidebar">
           <span class="activity-icon-svg codicon codicon-files" aria-hidden="true"></span>
         </button>
         <button class="activity-icon" type="button" aria-label="Search" title="Search">
@@ -24,7 +24,7 @@
         <button class="activity-icon" type="button" aria-label="Source Control" title="Source Control">
           <span class="activity-icon-svg codicon codicon-source-control" aria-hidden="true"></span>
         </button>
-        <button class="activity-icon" type="button" aria-label="Run and Debug" title="Run and Debug">
+        <button class="activity-icon" type="button" aria-label="Run and Debug" title="Run and Debug">n b 
           <span class="activity-icon-svg codicon codicon-debug-alt" aria-hidden="true"></span>
         </button>
         <button class="activity-icon" type="button" aria-label="Extensions" title="Extensions">
@@ -44,7 +44,7 @@
       </div>
     </aside>
 
-    <aside class="sidebar" aria-label="Explorer">
+    <aside class="sidebar is-hidden" id="explorerSidebar" aria-label="Explorer">
       <div class="sidebar-title">
         <span>EXPLORER</span>
         <button class="sidebar-title-action" type="button" aria-label="Explorer actions" title="Explorer actions">
@@ -106,6 +106,10 @@
           <button class="sidebar-file" data-section="curo-research" type="button">
             <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
             <span>CuroResearch.ipynb</span>
+          </button>
+          <button class="sidebar-file" data-section="course-projects" type="button">
+            <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
+            <span>CourseProjects.ipynb</span>
           </button>
           <button class="sidebar-file" data-section="personal" type="button">
             <span class="file-icon file-icon--ipynb codicon codicon-notebook" aria-hidden="true"></span>
@@ -198,6 +202,10 @@
 
         <section class="editor-section" data-section="curo-research" aria-labelledby="tab-curo-research">
           <div id="curoResearchNotebook" class="notebook" role="list"></div>
+        </section>
+
+        <section class="editor-section" data-section="course-projects" aria-labelledby="tab-course-projects">
+          <div id="courseProjectsNotebook" class="notebook" role="list"></div>
         </section>
 
         <section class="editor-section" data-section="personal" aria-labelledby="tab-personal">

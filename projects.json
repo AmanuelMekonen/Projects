@@ -13,8 +13,9 @@
     ],
     "images": [
       "images/1a.png",
-      "images/1b.JPEG",
-      "images/1c.JPEG"
+      "images/1b.png",
+      "images/1c.JPEG",
+      "images/1d.JPEG"
     ],
     "link": "#"
   },
@@ -31,7 +32,8 @@
       "LiPo"
     ],
     "images": [
-      "images/2.png"
+      "images/2a.png",
+      "images/2b.png"
     ],
     "link": "#"
   },
@@ -48,9 +50,36 @@
       "Real-time"
     ],
     "images": [
-      "images/3.png"
+      "images/3a.png",
+      "images/3b.jfif",
+      "images/3c.png"
     ],
     "link": "#"
+  },
+  {
+    "id": "electronic-test-bench",
+    "summary": "Project details coming soon.",
+    "tags": [],
+    "link": "#",
+    "title": "Electronic Test bench",
+    "images": [
+      "images/4a.JPEG?v=c131b3c63a8b",
+      "images/4b.png?v=f93f7507bf90",
+      "images/4c.png?v=590eab31184c",
+      "images/4d.JPEG?v=ad310d7a2905"
+    ]
+  },
+  {
+    "id": "sensor-integrated-gimbal-headlight-tracker",
+    "summary": "Project details coming soon.",
+    "tags": [],
+    "link": "#",
+    "title": "Sensor-Integrated Gimbal Headlight Tracker",
+    "images": [
+      "images/5a.JPEG",
+      "images/5b.JPEG",
+      "images/5c.JPEG"
+    ]
   },
   {
     "id": "doom-on-m5stick",
@@ -65,14 +94,14 @@
       "PCB"
     ],
     "images": [
-      "images/4a.JPEG",
-      "images/4b.JPEG"
+      "images/6a.JPEG",
+      "images/6b.JPEG"
     ],
     "link": "#"
   },
   {
     "id": "batbot-ant-weight-battle-bot",
-    "title": "BatBot–Ant Weight Battle Bot",
+    "title": "BatBot – Ant Weight Battle Bot",
     "projectOverview": "Bat-Bot is a plastic antweight combat robot designed and built for the UGA Robotics Club Battle Bot competition. The goal was to create a fully functional, competition-ready robot using primarily ABS plastic to demonstrate strong structural performance while keeping the design lightweight, manufacturable, and easy to iterate.",
     "specificContribution": "I designed the full mechanical system in CAD and manufactured the robot using ABS for all structural components except rubber tires and metal hinge hardware. I optimized the chassis and wedge geometry for durability and impact deflection while maintaining low weight. I assembled, tested, and validated the robot for competition use, ensuring the mechanical joints, drive system, and structure could withstand combat conditions.",
     "technicalDetails": "This project involved CAD design for impact-loaded structures, material selection using ABS for strength and printability, and mechanical system integration including hinged armor and drive components. It also included design for manufacturability using 3D printing, mechanical assembly, and iterative structural testing for real-world robotic competition use.",
@@ -83,7 +112,7 @@
       "Battle Bot"
     ],
     "images": [
-      "images/5.png"
+      "images/8.png"
     ],
     "link": "#"
   },
@@ -100,7 +129,7 @@
       "Modular Design"
     ],
     "images": [
-      "images/6.png"
+      "images/7.png"
     ],
     "link": "#"
   }

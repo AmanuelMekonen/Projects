@@ -4,6 +4,7 @@ const SECTION_IDS = [
   "projects",
   "create-lab",
   "curo-research",
+  "course-projects",
   "personal",
   "contact",
 ];
@@ -26,6 +27,16 @@ const PERSONAL_FALLBACK_PROJECTS = [
     summary: "Add your personal projects here.",
   },
 ];
+const COURSE_PROJECTS_FALLBACK_PROJECTS = [
+  {
+    title: "Course Projects",
+    summary: "Course project details coming soon.",
+  },
+];
+const COURSE_PROJECT_IDS = new Set([
+  "electronic-test-bench",
+  "sensor-integrated-gimbal-headlight-tracker",
+]);
 let projectsDataPromise;
 
 function escapeHtml(value) {
@@ -364,7 +375,7 @@ function buildNotebookMarkdownCell(title) {
   ].join("\n");
 }
 
-function buildNotebookCodeCell(projectOrSummary) {
+function buildNotebookCodeCell(projectOrSummary, showPrompt = true) {
   const codeAssignments = [];
   const isProjectObject =
     projectOrSummary && typeof projectOrSummary === "object";
@@ -394,7 +405,7 @@ function buildNotebookCodeCell(projectOrSummary) {
       const codeLine = `${t.variable(name)} ${t.operator("=")} ${t.string(value)}`;
       return [
         '<div class="nb-cell nb-code" role="listitem">',
-        '  <div class="nb-cell-gutter"><span class="nb-prompt">In&nbsp;[&nbsp;]:</span></div>',
+        `  <div class="nb-cell-gutter"><span class="nb-prompt">${showPrompt ? "Out[&nbsp;]:" : ""}</span></div>`,
         '  <div class="nb-cell-body">',
         `    <pre class="nb-code"><code>${codeLine}</code></pre>`,
         "  </div>",
@@ -415,7 +426,7 @@ function buildNotebookOutputCell(project) {
   if (images.length <= 1) {
     return [
       '<div class="nb-output" role="listitem">',
-      '  <div class="nb-cell-gutter"><span class="nb-prompt">Out[&nbsp;]:</span></div>',
+      '  <div class="nb-cell-gutter"><span class="nb-prompt">In&nbsp;[&nbsp;]:</span></div>',
       '  <div class="nb-cell-body">',
       '    <div class="nb-output-area">',
       `      <img class="nb-output-image" src="${escapeHtml(
@@ -450,7 +461,7 @@ function buildNotebookOutputCell(project) {
 
   return [
     '<div class="nb-output" role="listitem">',
-    '  <div class="nb-cell-gutter"><span class="nb-prompt">Out[&nbsp;]:</span></div>',
+    '  <div class="nb-cell-gutter"><span class="nb-prompt">In&nbsp;[&nbsp;]:</span></div>',
     '  <div class="nb-cell-body">',
     '    <div class="nb-output-area">',
     '      <div class="nb-slider" data-slide-index="0">',
@@ -469,6 +480,18 @@ function buildNotebookOutputCell(project) {
   ].join("\n");
 }
 
+function buildCollapsibleProjectOutput(project) {
+  return [
+    '<details class="nb-project-output">',
+    `  <summary class="nb-output-toggle" aria-label="Project details for ${escapeHtml(project.title || "Untitled Project")}">`,
+    '    <span class="nb-cell-gutter"><span class="nb-prompt">Out[&nbsp;]:</span></span>',
+    '    <span class="nb-output-toggle-label"><span class="codicon codicon-chevron-right" aria-hidden="true"></span>Project details</span>',
+    '  </summary>',
+    buildNotebookCodeCell(project, false),
+    '</details>',
+  ].join("\n");
+}
+
 function buildProjectsNotebook(projects, title = "Projects") {
   if (!Array.isArray(projects) || projects.length === 0) {
     return [
@@ -483,12 +506,20 @@ function buildProjectsNotebook(projects, title = "Projects") {
       return [
         '<div class="notebook-project">',
         buildNotebookMarkdownCell(title),
-        buildNotebookCodeCell(project),
         buildNotebookOutputCell(project),
+        buildCollapsibleProjectOutput(project),
         "</div>",
       ].join("\n");
     })
     .join("\n");
+}
+
+function updateSliderHeight(slider) {
+  const track = slider.querySelector(".nb-slider-track");
+  const slides = track?.querySelectorAll(".nb-slider-slide");
+  const image = slides?.[Number(slider.dataset.slideIndex || 0)];
+  if (!image?.naturalWidth || !image.naturalHeight || !track.clientWidth) return;
+  track.style.height = `${track.clientWidth * image.naturalHeight / image.naturalWidth}px`;
 }
 
 function setSliderIndex(slider, nextIndex) {
@@ -501,6 +532,7 @@ function setSliderIndex(slider, nextIndex) {
   const boundedIndex = ((nextIndex % slides.length) + slides.length) % slides.length;
   slider.dataset.slideIndex = String(boundedIndex);
   track.style.transform = `translateX(-${boundedIndex * 100}%)`;
+  updateSliderHeight(slider);
 
   const dots = slider.querySelectorAll(".nb-slider-dot");
   dots.forEach((dot, idx) => {
@@ -516,6 +548,16 @@ function initNotebookSliders(scope = document) {
 
     const slides = track.querySelectorAll(".nb-slider-slide");
     if (slides.length <= 1) return;
+
+    slides.forEach((image) => {
+      image.addEventListener("load", () => updateSliderHeight(slider));
+    });
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(() => updateSliderHeight(slider));
+      observer.observe(slider);
+    } else {
+      window.addEventListener("resize", () => updateSliderHeight(slider));
+    }
 
     setSliderIndex(slider, Number(slider.dataset.slideIndex || 0));
 
@@ -584,15 +626,18 @@ async function renderStaticNotebooks() {
     const allProjects = Array.isArray(projects) ? projects : [];
     const curoResearchProjects = allProjects.slice(0, 1);
     const createLabProjects = allProjects.slice(1, 3);
-    const personalProjects = allProjects.slice(3);
+    const courseProjects = allProjects.filter((project) => COURSE_PROJECT_IDS.has(project.id));
+    const personalProjects = allProjects.slice(3).filter((project) => !COURSE_PROJECT_IDS.has(project.id));
 
     renderNotebook("curoResearchNotebook", "Curo Research", curoResearchProjects);
     renderNotebook("createLabNotebook", "Create Lab", createLabProjects);
+    renderNotebook("courseProjectsNotebook", "Course Projects", courseProjects);
     renderNotebook("personalNotebook", "Personal Projects", personalProjects);
   } catch (error) {
     console.error("Failed to load projects.json for notebook sections", error);
     renderNotebook("curoResearchNotebook", "Curo Research", CURO_RESEARCH_FALLBACK_PROJECTS);
     renderNotebook("createLabNotebook", "Create Lab", CREATE_LAB_FALLBACK_PROJECTS);
+    renderNotebook("courseProjectsNotebook", "Course Projects", COURSE_PROJECTS_FALLBACK_PROJECTS);
     renderNotebook("personalNotebook", "Personal Projects", PERSONAL_FALLBACK_PROJECTS);
   }
 }
@@ -607,6 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const isHidden = sidebar.classList.toggle("is-hidden");
       appRoot.classList.toggle("sidebar-collapsed", isHidden);
       explorerToggle.classList.toggle("is-active", !isHidden);
+      explorerToggle.setAttribute("aria-expanded", String(!isHidden));
     });
   }
 
