@@ -109,7 +109,7 @@ function updateBreadcrumb(sectionId) {
     `${sectionId}.py`;
   const download =
     sectionId === "resume"
-      ? '<a class="breadcrumb-download" href="Resume.pdf" download aria-label="Download Resume.pdf" title="Download Resume.pdf"><span class="codicon codicon-download" aria-hidden="true"></span></a>'
+      ? '<a class="breadcrumb-download" href="Resume.pdf?v=a4b2780759bb" download aria-label="Download Resume.pdf" title="Download Resume.pdf"><span class="codicon codicon-download" aria-hidden="true"></span></a>'
       : "";
 
   breadcrumb.innerHTML = `<span class="breadcrumb-label">${escapeHtml(

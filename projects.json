@@ -33,7 +33,8 @@
     ],
     "images": [
       "images/2a.png?v=dea0e2b57da8",
-      "images/2b.png?v=9aa6ae75d0d0"
+      "images/2b.png?v=9aa6ae75d0d0",
+      "images/2c.JPEG?v=8c568207f2eb"
     ],
     "link": "#"
   },
@@ -58,28 +59,42 @@
   },
   {
     "id": "electronic-test-bench",
-    "summary": "Project details coming soon.",
-    "tags": [],
-    "link": "#",
     "title": "Electronic Test bench",
+    "projectOverview": "This project is a Raspberry Pi 4-based electronic testbench that combines analog measurement, signal generation, digital control, and a custom PCB into a stand-alone instrument. The system includes an ohmmeter, voltmeter, adjustable DC reference, square- and sine-wave generation, frequency measurement, and supporting power circuitry.",
+    "specificContribution": "I was responsible for the PCB design and contributed to hardware integration across the system. I translated the subsystem schematics into a manufacturable 4-layer mixed-signal board in Altium, organizing component placement, signal routing, power distribution, and Raspberry Pi/LCD interfaces for fabrication and assembly.",
+    "technicalDetails": "The PCB uses a 1.6 mm 4-layer stackup with top and bottom signal layers, a dedicated ground plane, and a dedicated power plane. The layout was designed to JLCPCB manufacturing constraints and passed Altium design-rule verification with 0 warnings and 0 violations before fabrication. The completed board integrates the Raspberry Pi interface with analog measurement, ADC, digital potentiometer, power, and waveform-generation circuitry.",
+    "tags": [
+      "Altium",
+      "PCB",
+      "Raspberry Pi",
+      "Mixed-Signal"
+    ],
     "images": [
       "images/4a.JPEG?v=c131b3c63a8b",
       "images/4b.png?v=f93f7507bf90",
       "images/4c.png?v=590eab31184c",
       "images/4d.JPEG?v=ad310d7a2905"
-    ]
+    ],
+    "link": "#"
   },
   {
     "id": "sensor-integrated-gimbal-headlight-tracker",
-    "summary": "Project details coming soon.",
-    "tags": [],
-    "link": "#",
     "title": "Sensor-Integrated Gimbal Headlight Tracker",
+    "projectOverview": "SIGHT is a battery-powered adaptive bicycle headlight that follows the rider's head direction and adjusts brightness to ambient light. A head-mounted BMI160 and XIAO ESP32-S3 send orientation data over BLE to a bicycle-mounted controller, while an LDR, PIR sensor, capacitive input, two-axis servo gimbal, and LED headlight provide adaptive sensing and control.",
+    "specificContribution": "I designed and implemented the sensor signal-processing pipeline and integrated the sensing and control hardware. For the ambient-light channel, I developed hardware linearization, transistor buffering, analog RC filtering, ADC conversion, calibration, averaging, and Kalman filtering, then integrated the processed measurements with BLE orientation data, servo positioning, and PWM brightness control.",
+    "technicalDetails": "The system uses ESP32-S3 microcontrollers, a BMI160 IMU, LDR, HC-SR501 PIR sensor, and a homemade capacitive sensor. The LDR path combines analog conditioning with 12-bit ADC sampling and a one-dimensional Kalman filter; testing showed about a 44% reduction in signal variation while preserving the mean measurement. The control algorithm combines user enable, rider motion, ambient light, and head orientation to determine when the light operates, how bright it is, and where it points.",
+    "tags": [
+      "ESP32-S3",
+      "Signal Processing",
+      "BLE",
+      "Kalman Filter"
+    ],
     "images": [
       "images/5a.JPEG?v=3e328f526f41",
       "images/5b.JPEG?v=ec2147eecfcd",
       "images/5c.JPEG?v=da936a796fd2"
-    ]
+    ],
+    "link": "#"
   },
   {
     "id": "doom-on-m5stick",
