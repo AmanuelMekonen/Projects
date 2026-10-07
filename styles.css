@@ -389,34 +389,94 @@ button {
 }
 
 .readme-profile {
-  min-height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  text-align: center;
-  padding: 24px 16px;
+  max-width: 920px;
+  padding: 12px 16px 40px 0;
+  font-family: var(--font-code);
+  font-size: 14px;
+  line-height: 1.8;
+  counter-reset: readme-line;
+}
+
+.readme-line {
+  position: relative;
+  margin: 0;
+  padding-left: var(--gutter-width);
+  min-height: 1.8em;
+  overflow-wrap: anywhere;
+  counter-increment: readme-line;
+}
+
+.readme-line::before {
+  content: counter(readme-line);
+  position: absolute;
+  left: 0;
+  width: 28px;
+  color: #858585;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 2.1;
+  user-select: none;
+}
+
+.readme-heading {
+  color: var(--token-variable);
+  font-size: inherit;
+  font-weight: 600;
+}
+
+.readme-syntax {
+  color: var(--text-muted);
+}
+
+.readme-image-source {
+  display: block;
+  color: var(--token-string);
 }
 
 .readme-avatar {
+  display: block;
   width: var(--avatar-size);
   height: var(--avatar-size);
-  border-radius: 50%;
-  border: 3px solid var(--accent);
+  max-width: 100%;
+  margin-top: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
   object-fit: cover;
   object-position: 50% var(--avatar-focus-y);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .readme-text {
-  max-width: 720px;
-  margin: 0;
-  font-family: var(--font-code);
-  line-height: 1.7;
   color: var(--text);
-  font-size: 14px;
+}
+
+.readme-divider {
+  color: var(--text-muted);
+}
+
+.readme-projects-button {
+  background: transparent;
+  color: var(--token-variable);
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.readme-link-target {
+  color: var(--token-string);
+}
+
+.readme-projects-button:hover .readme-link-label {
+  text-decoration: underline;
+}
+
+.readme-projects-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .resume-section {
@@ -598,6 +658,16 @@ button {
   width: 3px;
   border-radius: 0;
   background: transparent;
+}
+
+.notebook-project:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--nb-gutter-width, 48px) + var(--nb-cell-gap, 10px));
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
 }
 
 .notebook-project.is-selected::before {
@@ -1059,13 +1129,12 @@ button {
   }
 
   .readme-profile {
-    justify-content: flex-start;
-    padding-top: calc(64px + env(safe-area-inset-top));
-    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+    --gutter-width: 36px;
+    padding: 4px 0 calc(40px + env(safe-area-inset-bottom));
+    font-size: 13px;
   }
 
-  .readme-text {
-    font-size: 13px;
-    line-height: 1.6;
+  .readme-line::before {
+    width: 22px;
   }
 }
